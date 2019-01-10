@@ -199,6 +199,98 @@
  <goal name="VC compute_add" expl="VC for compute_add" proved="true">
  <proof prover="2"><result status="valid" time="0.02" steps="46"/></proof>
  </goal>
+ <goal name="VC compute_neg" expl="VC for compute_neg" proved="true">
+ <proof prover="2"><result status="valid" time="0.00" steps="110"/></proof>
+ </goal>
+ <goal name="VC compute_sb" expl="VC for compute_sb" proved="true">
+ <proof prover="2"><result status="valid" time="0.03" steps="152"/></proof>
+ </goal>
+ <goal name="div_boundary" proved="true">
+ <proof prover="0"><result status="valid" time="0.02"/></proof>
+ </goal>
+ <goal name="VC compute_cst" expl="VC for compute_cst" proved="true">
+ <transf name="split_all_full" proved="true" >
+  <goal name="VC compute_cst.0" expl="assertion" proved="true">
+  <transf name="split_all_full" proved="true" >
+   <goal name="VC compute_cst.0.0" expl="VC for compute_cst" proved="true">
+   <proof prover="2"><result status="valid" time="0.03" steps="65"/></proof>
+   </goal>
+   <goal name="VC compute_cst.0.1" expl="VC for compute_cst" proved="true">
+   <proof prover="1"><result status="valid" time="0.38"/></proof>
+   </goal>
+   <goal name="VC compute_cst.0.2" expl="VC for compute_cst" proved="true">
+   <proof prover="0"><result status="valid" time="0.02"/></proof>
+   </goal>
+   <goal name="VC compute_cst.0.3" expl="VC for compute_cst" proved="true">
+   <proof prover="2"><result status="valid" time="0.02" steps="20"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC compute_cst.1" expl="assertion" proved="true">
+  <transf name="split_all_full" proved="true" >
+   <goal name="VC compute_cst.1.0" expl="VC for compute_cst" proved="true">
+   <proof prover="2"><result status="valid" time="0.03" steps="16"/></proof>
+   </goal>
+   <goal name="VC compute_cst.1.1" expl="VC for compute_cst" proved="true">
+   <proof prover="2"><result status="valid" time="0.03" steps="18"/></proof>
+   </goal>
+   <goal name="VC compute_cst.1.2" expl="VC for compute_cst" proved="true">
+   <proof prover="0"><result status="valid" time="0.02"/></proof>
+   </goal>
+   <goal name="VC compute_cst.1.3" expl="VC for compute_cst" proved="true">
+   <proof prover="2"><result status="valid" time="0.03" steps="22"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC compute_cst.2" expl="precondition" proved="true">
+  <proof prover="1"><result status="valid" time="0.03"/></proof>
+  </goal>
+  <goal name="VC compute_cst.3" expl="assertion" proved="true">
+  <transf name="split_all_full" proved="true" >
+   <goal name="VC compute_cst.3.0" expl="VC for compute_cst" proved="true">
+   <proof prover="2"><result status="valid" time="0.83" steps="659"/></proof>
+   </goal>
+   <goal name="VC compute_cst.3.1" expl="VC for compute_cst" proved="true">
+   <proof prover="2"><result status="valid" time="0.03" steps="16"/></proof>
+   </goal>
+   <goal name="VC compute_cst.3.2" expl="VC for compute_cst" proved="true">
+   <proof prover="2"><result status="valid" time="0.03" steps="18"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC compute_cst.4" expl="assertion" proved="true">
+  <transf name="split_all_full" proved="true" >
+   <goal name="VC compute_cst.4.0" expl="VC for compute_cst" proved="true">
+   <proof prover="2"><result status="valid" time="0.36" steps="183"/></proof>
+   </goal>
+   <goal name="VC compute_cst.4.1" expl="VC for compute_cst" proved="true">
+   <proof prover="1"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC compute_cst.4.2" expl="VC for compute_cst" proved="true">
+   <proof prover="1"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC compute_cst.4.3" expl="VC for compute_cst" proved="true">
+   <proof prover="2"><result status="valid" time="0.05" steps="20"/></proof>
+   </goal>
+   <goal name="VC compute_cst.4.4" expl="VC for compute_cst" proved="true">
+   <proof prover="2"><result status="valid" time="0.05" steps="22"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC compute_cst.5" expl="precondition" proved="true">
+  <proof prover="1"><result status="valid" time="0.05"/></proof>
+  </goal>
+  <goal name="VC compute_cst.6" expl="postcondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.02" steps="137"/></proof>
+  </goal>
+  <goal name="VC compute_cst.7" expl="postcondition" proved="true">
+  <proof prover="1"><result status="valid" time="0.06"/></proof>
+  </goal>
+  <goal name="VC compute_cst.8" expl="postcondition" proved="true">
+  <proof prover="1"><result status="valid" time="0.08"/></proof>
+  </goal>
+ </transf>
+ </goal>
 </theory>
 </file>
 </why3session>

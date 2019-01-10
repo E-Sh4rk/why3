@@ -156,7 +156,7 @@ let compute_round (n:int) (ghost z : real) (zp: int)
     assert { (from_int res) *. (_B (-n)) <=. lb +. (_B (-n)) } ;
     assert { (from_int res -. 1.) *. (_B (-n)) <=. lb } ;
     (* Higher bound *)
-    assert { (from_int zp -. 2.) *. _B (-1) *. <. (from_int res) } ;
+    assert { (from_int zp -. 2.) *. _B (-1) <. (from_int res) } ;
     assert { (from_int zp -. 2.) *. _B (-1) *. (_B (-n)) <. (from_int res) *. (_B (-n)) } ;
     assert { (from_int zp -. 2.) *. _B (-(n+1)) <. (from_int res) *. (_B (-n)) } ;
     assert { (from_int zp +. 2. -. 4.) *. _B (-(n+1)) <. (from_int res) *. (_B (-n)) } ;
@@ -172,3 +172,59 @@ let compute_add (n: int) (ghost x : real) (xp : int) (ghost y : real) (yp : int)
   requires { framing y yp (n+1) }
   ensures { framing (x+.y) result n } =
   compute_round n (x+.y) (xp + yp)
+
+(* 2. Subtraction *)
+
+let compute_neg (n: int) (ghost x : real) (xp : int)
+  requires { framing x xp n }
+  ensures { framing (-.x) result n } =
+  -xp
+
+let compute_sb (n: int) (ghost x : real) (xp : int) (ghost y : real) (yp : int)
+  requires { framing x xp (n+1) }
+  requires { framing y yp (n+1) }
+  ensures { framing (x-.y) result n } =
+  compute_add n x xp (-.y) (-yp)
+
+(* 3. Conversion of Integer Constant *)
+
+lemma div_boundary : forall x, y. y>0 -> (ED.div x y) * y - y < x < (ED.div x y) * y + y
+
+let compute_cst (n: int) (x : int) : int
+  ensures { framing (from_int x) result n } =
+  if n = 0 then
+    x
+  else if n < 0 then (
+    assert { (from_int (ED.div x (power 2 (2*(-n)))) -. 1. ) *. (_B (-n)) <. from_int x 
+          by (ED.div x (power 4 (-n)) - 1) * (power 4 (-n)) < x
+          so from_int ((ED.div x (power 4 (-n)) - 1) * (power 4 (-n))) <. from_int x
+          so (from_int (ED.div x (power 4 (-n))) -. 1. ) *. from_int (power 4 (-n)) <. from_int x } ;
+
+    assert { from_int x <. (from_int (ED.div x (power 2 (2*(-n)))) +. 1. ) *. (_B (-n))
+          by x < (ED.div x (power 4 (-n)) + 1) * (power 4 (-n))
+          so from_int x <. from_int ((ED.div x (power 4 (-n)) + 1) * (power 4 (-n)))
+          so from_int x <. (from_int (ED.div x (power 4 (-n))) +. 1. ) *. from_int (power 4 (-n)) } ;
+    
+    shift_right x (2*(-n))
+    )
+  else (
+  
+    assert { from_int x <. (from_int (x * (power 2 (2*n))) +. 1. ) *. (_B (-n))
+          by from_int x <. (from_int (x * (power 4 n))) *. (inv (from_int (power 4 n))) +. (inv (from_int (power 4 n)))
+          so from_int x <. (from_int (x * (power 2 (2*n))) +. 1. ) *. (inv (from_int (power 4 n))) } ;
+  
+    assert { (from_int (x * (power 2 (2*n))) -. 1. ) *. (_B (-n)) <. from_int x 
+          by let y = (power 4 n) in (from_int (x * y)) *. (inv (from_int y)) = from_int x
+          so let y = (power 4 n) in (from_int (x * y)) *. (inv (from_int y)) -. (inv (from_int y)) <. from_int x
+          so (from_int (x * (power 4 n))) *. (inv (from_int (power 4 n))) -. (inv (from_int (power 4 n))) <. from_int x
+          so (from_int (x * (power 2 (2*n))) -. 1. ) *. (inv (from_int (power 4 n))) <. from_int x } ;
+
+    shift_left x (2*n)
+    )
+
+
+
+
+
+
+
