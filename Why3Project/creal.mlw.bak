@@ -1,0 +1,174 @@
+
+use int.Int
+use mach.int.Int
+use real.RealInfix
+use real.ExpLog
+use int.Power
+use ref.Ref
+
+(* ---------- PART I ---------- *)
+
+axiom op_log : forall x:real,y:real. 0. <. x <. y -> log(x) <. log(y)
+
+(* ---------- PART II ---------- *)
+
+use int.EuclideanDivision as ED
+
+let lemma euclid_uniq (x y q : int) : unit
+  requires { y > 0 }
+  requires { q * y <= x < q * y + y }
+  ensures { ED.div x y = q } =
+  ()
+
+(*let power2 (l:int) : int
+  requires { 0 <= l }
+  ensures { result = power 2 l } =
+  let r = ref 1 in
+  for i = 0 to l-1 do
+    invariant { !r = power 2 i }
+    r := !r * 2
+  done ;
+  !r*)
+  
+let rec power2 (l:int) : int
+  requires { 0 <= l }
+  ensures { result = power 2 l }
+  variant { l } =
+  if l = 0 then 1 else 2 * (power2 (l-1))
+  
+let shift_left (z: int) (l:int) : int
+  requires { 0 <= l }
+  ensures { result = z * (power 2 l) } =
+  z * (power2 l)
+  
+let ediv_mod (x:int) (y:int) : (int, int)
+  requires { 0 < y }
+  ensures { let d,r = result in
+  d = ED.div x y /\ r = ED.mod x y } =
+  (* (ED.div x y, ED.mod x y) *)
+  let q = ref 0 in
+  let r = ref x in
+  if 0 <= x then (
+     while !r >= y do
+        invariant { x = !q * y + !r /\ 0 <= !r }
+        variant { !r }
+        r := !r - y; q := !q + 1
+     done
+   ) else (
+    while !r < 0 do
+        invariant { x = !q * y + !r /\ !r < 0 }
+        variant { -(!r) }
+        r := !r + y; q := !q - 1
+     done
+   ) ;
+   (!q, !r)
+  
+let shift_right (z: int) (l:int) : int
+  requires { 0 <= l }
+  ensures { result = ED.div z (power 2 l) } =
+  let d,_ = ediv_mod z (power2 l) in
+  d
+
+use real.Square
+use real.FromInt
+use real.Truncate
+
+let isqrt (n:int) : int
+  requires { 0 <= n }
+  ensures { result = floor (sqrt (from_int n)) }
+  =
+  (* floor (sqrt (from_int n)) *)
+  let count = ref 0 in
+  let sum = ref 1 in
+    while !sum <= n do
+      invariant { 0 <= !count }
+      invariant { !count * !count <= n }
+      invariant { !sum = (!count+1)*(!count+1) }
+      variant { n - !sum }
+      count := !count + 1;
+      sum := !sum + 2 * !count + 1
+    done ;
+    assert { !count >= 0 /\ !count * !count <= n < (!count + 1)*(!count + 1) } ;
+    assert { from_int !count <=. sqrt (from_int n) <. from_int (!count + 1) } ;
+    !count
+    
+(* ---------- PART III ---------- *)
+
+use real.PowerReal
+
+function b : real = 4.
+
+function _B (n:int) : real = pow b (from_int n)
+
+lemma _B_6 : forall n. _B n >. 0.
+
+lemma _B_7 : forall n, m. (_B n) *. (_B m) = _B (n + m)
+
+lemma _B_8 : forall n. _B n *. _B (-n) = 1.
+
+lemma _B_9_1 : forall n. sqrt (_B (2*n)) = _B n
+
+lemma _B_9 : forall a,n. 0. <=. a -> sqrt (a *. _B (2*n)) = (sqrt a) *. (_B n)
+
+lemma _B_10 : forall y. 0 <= y -> _B y = from_int (power 4 y)
+
+lemma _B_11_1 : forall y. (pow b y)*.(pow b (-.y)) = 1. (* Same as B_8 but for reals *)
+
+lemma _B_11 : forall y. y < 0 -> _B y = inv (from_int (power 4 (-y)))
+
+lemma _B_12 : forall y. 0 <= y -> power 2 (2 * y) = power 4 y
+
+
+(* ---------- PART IV ---------- *)
+
+predicate framing (x:real) (p:int) (n:int) =
+  (from_int p -. 1.) *. (_B (-n)) <. x <. (from_int p +. 1.) *. (_B (-n))
+(* This definition is better because it uses the function _B for which we have proven some lemmas that will be useful. *)
+
+(* 1. Addition *)
+let round_z_over_4 (z : int)
+  ensures { ((from_int z) -. 2.) *. (_B (-1)) <. from_int result <=. ((from_int z) +. 2.) *. (_B (-1)) }
+  =
+  assert { (from_int (ED.div (z+2) 4)) *. (_B 1) <=. (from_int z) +. 2. } ;
+  assert { (from_int z) -. 2. <. (from_int (ED.div (z+2) 4)) *. (_B 1) } ;
+  let res = shift_right (z + 2) 2
+  in
+    assert { (from_int res) *. (_B 1) <=. (from_int z) +. 2. } ;
+    assert { (from_int z) -. 2. <. (from_int res) *. (_B 1) } ;
+    res
+
+let compute_round (n:int) (ghost z : real) (zp: int)
+  requires { (from_int zp -. 2.) *. _B (-(n+1)) <. z <=. (from_int zp +. 2.) *. _B (-(n+1)) }
+  ensures { framing z result n } =
+  let ghost lb = (from_int zp -. 2.) *. _B (-(n+1)) in
+  let ghost hb = (from_int zp +. 2.) *. _B (-(n+1)) in
+  assert { lb <. z <=. hb } ;
+  let res = round_z_over_4 zp
+  in
+    (* Lower bound *)
+    assert { (from_int res) <=. ((from_int zp +. 2.) *. _B (-1)) } ;
+    assert { (from_int res) *. (_B (-n)) <=. ((from_int zp +. 2.) *. _B (-1)) *. (_B (-n)) } ;
+    assert { (from_int res) *. (_B (-n)) <=. ((from_int zp +. 2.) *. _B (-(n+1))) } ;
+    assert { (from_int res) *. (_B (-n)) <=. ((from_int zp -. 2. +. 4.) *. _B (-(n+1))) } ;
+    assert { (from_int res) *. (_B (-n)) <=. ((from_int zp -. 2. +. (_B 1)) *. _B (-(n+1))) } ;
+    assert { (from_int res) *. (_B (-n)) <=. (from_int zp -. 2.) *. _B (-(n+1)) +. (_B (-(n+1))) *. (_B 1) } ;
+    assert { (from_int res) *. (_B (-n)) <=. lb +. (_B (-(n+1))) *. (_B 1) } ;
+    assert { (from_int res) *. (_B (-n)) <=. lb +. (_B (-n)) } ;
+    assert { (from_int res -. 1.) *. (_B (-n)) <=. lb } ;
+    (* Higher bound *)
+    assert { (from_int zp -. 2.) *. _B (-1) *. <. (from_int res) } ;
+    assert { (from_int zp -. 2.) *. _B (-1) *. (_B (-n)) <. (from_int res) *. (_B (-n)) } ;
+    assert { (from_int zp -. 2.) *. _B (-(n+1)) <. (from_int res) *. (_B (-n)) } ;
+    assert { (from_int zp +. 2. -. 4.) *. _B (-(n+1)) <. (from_int res) *. (_B (-n)) } ;
+    assert { (from_int zp +. 2. -. (_B 1)) *. _B (-(n+1)) <. (from_int res) *. (_B (-n)) } ;
+    assert { (from_int zp +. 2.) *. _B (-(n+1)) -. (_B (-(n+1))) *. (_B 1) <. (from_int res) *. (_B (-n)) } ;
+    assert { hb -. (_B (-(n+1))) *. (_B 1) <. (from_int res) *. (_B (-n)) } ;
+    assert { hb -. (_B (-n)) <. (from_int res) *. (_B (-n)) } ;
+    assert { hb <. (from_int res +. 1.) *. (_B (-n)) } ;
+    res
+  
+let compute_add (n: int) (ghost x : real) (xp : int) (ghost y : real) (yp : int)
+  requires { framing x xp (n+1) }
+  requires { framing y yp (n+1) }
+  ensures { framing (x+.y) result n } =
+  compute_round n (x+.y) (xp + yp)

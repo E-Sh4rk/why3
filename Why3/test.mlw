@@ -1,0 +1,18 @@
+
+module Array_list
+
+   use int.Int
+   use ref.Ref
+   use array.Array
+
+   let mem_imp (a : array int) (x : int)
+   ensures {result -> exists i. a[i] = x}
+   =
+     let r = ref false in
+     for i = 0 to a.length-1 do
+       invariant {!r -> exists i. a[i] = x}
+       if a[i] = x
+       then r := true
+     done;
+     !r
+end

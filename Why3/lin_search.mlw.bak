@@ -1,0 +1,33 @@
+
+module LinSearch
+
+  use import int.Int
+  use import real.RealInfix
+  use import ref.Ref
+  use import array.Array
+
+  let search (a: array int) (v:int)
+    requires { exists i. 0 <= i < a.length /\ a[i] = v }
+    ensures  { a[result] = v /\ result < a.length }
+  = let i = ref 0 in
+    let res = ref (-1) in
+    while !i < a.length do
+      invariant { 0 <= !i }
+      invariant { !res <> (-1) -> a[!res] = v }
+      invariant { !res = (-1) -> (exists j. !i <= j < a.length /\  a[j] = v) }
+      invariant { 0 <= !i /\ res < a.length }
+      variant { a.length - !i }
+      let t = a[!i] in
+      if t = v then res := !i;
+      i := !i + 1
+    done;
+    !res
+
+end
+
+
+(*
+Local Variables:
+compile-command: "why3 ide lin_search.mlw"
+End:
+*)

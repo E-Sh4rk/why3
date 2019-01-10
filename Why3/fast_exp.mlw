@@ -1,0 +1,46 @@
+
+module Power
+
+   use import int.Int
+   use import ref.Ref
+   use import int.ComputerDivision
+   use import int.Power
+
+   val x : ref int
+   val n : ref int
+   val r : ref int
+   val p : ref int
+   val e : ref int
+
+   lemma power_mult :
+     forall x y n:int.
+       n >= 0 -> power (x*y) n = power x n * power y n
+
+   lemma power_even:
+     forall x:int, n:int. n >= 0 /\ mod n 2 = 0 ->
+       power x n = (power (x * x) (div n 2))
+
+   lemma power_odd:
+     forall x:int, n:int. n >= 0 /\ mod n 2 = 1 ->
+       power x n = x * (power (x * x) (div n 2))
+
+   let power_x_n ()
+     requires { !n >= 0 }
+     ensures { !r = power !x !n }
+   =
+     r := 1; p := !x; e := !n;
+     while !e > 0 do
+       invariant { 0 <= !e }
+       invariant { !r * power !p !e = power !x !n }
+       variant   { !e }
+       if mod !e 2 = 1 then r := !r * !p;
+       p := !p * !p;
+       e := div !e 2
+    done
+
+
+  let test () =
+    x := 2; n := 11; power_x_n(); !r
+    (* run test using "why3 execute power_int.mlw Power.test" *)
+
+end

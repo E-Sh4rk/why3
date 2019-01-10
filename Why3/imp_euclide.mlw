@@ -1,0 +1,37 @@
+(* Euclidean division *)
+
+module Euclide
+
+  use int.Int
+  use ref.Ref
+
+  val x : ref int
+  val y : ref int
+  val q : ref int
+  val r : ref int
+
+  let euclide ()
+    requires { 0 <= !x }
+    requires { 0 < !y }
+    ensures  { !x = !q * !y + !r }
+    ensures  { 0 <= !r < !y }
+    diverges (** we are not yet attempting to prove termination *)
+    =
+   q := 0; r := !x;
+   while !r >= !y do
+     invariant { !x = !q * !y + !r }
+     invariant { 0 <= !r }
+     r := !r - !y; q := !q + 1
+   done
+
+  let test () diverges =
+    x := 42; y := 17; euclide(); (!q,!r)
+    (* run test using "why3 execute imp_euclide.mlw Euclide.test" *)
+
+end
+
+(*
+Local Variables:
+compile-command: "why3 ide imp_euclide.mlw"
+End:
+*)

@@ -1,0 +1,50 @@
+
+module Power
+
+  predicate _TO_BE_COMPLETED
+  (* replace all occurrences of _TO_BE_COMPLETED below *)
+
+   use int.Int
+   use ref.Ref
+   use int.ComputerDivision
+   use int.Power
+
+   val x : ref int
+   val n : ref int
+   val r : ref int
+   val p : ref int
+   val e : ref int
+
+   (* a few helper lemmas *)
+   lemma power_mult :
+     forall x y n:int.
+       n >= 0 -> power (x*y) n = power x n * power y n
+
+   lemma power_even:
+     forall x:int, n:int. n >= 0 /\ mod n 2 = 0 ->
+       power x n = (power (x * x) (div n 2))
+
+   lemma power_odd:
+     forall x:int, n:int. n >= 0 /\ mod n 2 = 1 ->
+       power x n = x * (power (x * x) (div n 2))
+
+   (* the power function *)
+   let power_x_n ()
+     requires { _TO_BE_COMPLETED }
+     ensures { _TO_BE_COMPLETED }
+     diverges (** we are not yet attempting to prove termination *)
+   =
+     r := 1; p := !x; e := !n;
+     while !e > 0 do
+       invariant { _TO_BE_COMPLETED }
+       if mod !e 2 = 1 then r := !r * !p;
+       p := !p * !p;
+       e := div !e 2
+    done
+
+
+  let test () diverges =
+    x := 2; n := 11; power_x_n(); !r
+    (* run test using "why3 execute power_int.mlw Power.test" *)
+
+end

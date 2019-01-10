@@ -1,0 +1,33 @@
+(* Inefficient sum *)
+
+module Sum
+
+  predicate _TO_BE_COMPLETED
+  (* replace all occurrences of _TO_BE_COMPLETED below *)
+
+  use int.Int
+  use ref.Ref
+
+  val a : ref int
+  val b : ref int
+  val x : ref int
+  val y : ref int
+
+  let sum ()
+    requires { _TO_BE_COMPLETED }
+    ensures  { _TO_BE_COMPLETED }
+    diverges (** we are not yet attempting to prove termination *)
+  =
+   x := !a; y := !b;
+   while !y > 0 do
+     invariant { _TO_BE_COMPLETED }
+     x := !x + 1; y := !y - 1
+   done
+
+end
+
+(*
+Local Variables:
+compile-command: "why3 ide imp_sum.mlw"
+End:
+*)

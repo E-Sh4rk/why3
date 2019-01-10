@@ -1,0 +1,53 @@
+module Power
+
+  use import int.Int
+
+  function power int int : int
+  axiom power_0 : forall x:int. power x 0 = 1
+  axiom power_s : forall x n:int. n >= 0 ->
+    power x (n+1) = x * power x n
+
+(* turn the following lemma into a lemma function : *)
+
+  let lemma power_1 (x:int) : unit
+     ensures { power x 1 = x }
+  = assert { 1 = 0 + 1 }
+
+(* idem *)
+
+  let lemma sqrt4_256 () : unit
+    ensures { exists x:int. power x 4 = 256 }
+  = assert { power 4 4 = power 4 (1+1+1+1) = 256 }
+
+  let ghost sqrt4_256_var () : int
+    ensures { power result 4 = 256 }
+  = assert { 4 = 1+1+1+1 };
+    4
+
+(* idem *)
+
+   let rec lemma power_sum (x n m: int) : unit
+    requires { 0 <= n /\ 0 <= m }
+    variant { n }
+    ensures { power x (n+m) = power x n * power x m }
+   = if n = 0 then () else
+        power_sum x (n-1) m
+
+
+
+
+
+
+(* Fermat's little theorem for n = 3 *)
+
+  lemma little_fermat_3 : forall x : int. x >= 0 ->
+    exists y. power x 3 - x = 3 * y
+
+end
+
+
+(*
+Local Variables:
+compile-command: "why3 ide lemma_functions.mlw"
+End:
+*)

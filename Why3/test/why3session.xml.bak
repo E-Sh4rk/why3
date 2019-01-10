@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="5">
+<prover id="1" name="CVC4" version="1.5" timelimit="5" steplimit="0" memlimit="1000"/>
+<file name="../test.mlw" proved="true">
+<theory name="Array_list">
+ <goal name="VC mem_imp">
+ <proof prover="1"><result status="unknown" time="0.02"/></proof>
+ </goal>
+</theory>
+</file>
+</why3session>

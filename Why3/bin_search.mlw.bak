@@ -1,0 +1,39 @@
+module BinarySearch
+
+  use import int.Int
+  use import int.ComputerDivision
+  use import ref.Ref
+  use import array.Array
+
+  predicate sorted (a: array int) =
+    forall i j:int. 0 <= i <= j < length a -> a[i] <= a[j]
+
+  val a : array int
+
+  let binary_search (v: int)
+    requires { exists i. 0 <= i /\ i < a.length /\ a[i] = v }
+    requires { forall i, j. (0 <= i < j < a.length) -> a[i] <= a[j] }
+    ensures { a[result] = v }
+  =
+    let l = ref 0 in
+    let u = ref (length a - 1) in
+    let res = ref (-1) in
+    while !res < 0 && !l <= !u do
+        invariant { ? }
+        (*variant { ? }*)
+        let m = div (!u + !l) 2 in
+        if a[m] < v then l := m+1
+        else if a[m] > v then u := m-1
+        else res := m
+      done;
+    !res
+
+end
+
+
+
+(*
+Local Variables:
+compile-command: "why3 ide bin_search.mlw"
+End:
+*)
