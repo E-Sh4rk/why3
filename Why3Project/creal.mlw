@@ -224,24 +224,23 @@ let compute_cst (n: int) (x : int) : int
 
 function isqrt_2 (n:int) : int = ceil (sqrt (from_int n))
 
-let lemma sqrt_boundaries (n: int) : unit
+let lemma sqrt_boundaries (n:int) : unit
   requires { n >= 1 }
-  ensures { isqrt_2 (n+1) - 1 <= isqrt n (*<= isqrt (n-1) + 1*) } =
+  ensures { sqrt (from_int (n+1)) -. sqrt (from_int n) <=. 1. } =
   assert { sqrt (from_int (n+1)) -. sqrt (from_int n) <=. 1.
         by sqr (sqrt (from_int (n+1)) -. sqrt (from_int n))
         = sqr (sqrt (from_int (n+1))) -. 2. *. (sqrt (from_int (n+1))) *. (sqrt (from_int n)) +. sqr (sqrt (from_int n))
         = (from_int (n+1)) -. 2. *. (sqrt (from_int (n+1))) *. (sqrt (from_int n)) +. (from_int n)
         <=. (from_int (n+1)) -. 2. *. (sqrt (from_int n)) *. (sqrt (from_int n)) +. (from_int n)
         <=. (from_int (n+1)) -. 2. *. (from_int n) +. (from_int n)
-        <=. 1. } ;
+        <=. 1. }
+
+let lemma sqrt_boundary1 (n: int) : unit
+  requires { n >= 1 }
+  ensures { isqrt_2 (n+1) - 1 <= isqrt n } =
   let k = isqrt n in
   let k' = isqrt (n+1) in
-  if k * k = n then (
-    assert { isqrt_2 (n+1) - 1 <= isqrt n
-          by sqrt (from_int (n + 1)) -. 1. <=. sqrt (from_int n)
-          so isqrt_2 (n+1) - 1 <= isqrt_2 n = k = isqrt n }
-    )
-  else if k' * k' = n + 1 then
+  if k' * k' = n + 1 then
   (
     assert { isqrt_2 (n+1) - 1 <= isqrt n
           by sqrt (from_int (n + 1)) -. 1. <=. sqrt (from_int n) <=. from_int (isqrt n)
@@ -249,10 +248,27 @@ let lemma sqrt_boundaries (n: int) : unit
   )
   else
   (
-    let l = n - k*k in
-    assert { k >= 1 /\ 0 < l < k } ;
-    
+    if k' > k then
+      assert { false
+            by k' <= isqrt (n+1)
+            so sqr (from_int k') <=. sqr (from_int (isqrt (n+1))) <=. sqr (sqrt (from_int (n+1)))
+            so k' * k' <= n + 1 /\ k' * k' <> n + 1
+            so sqrt (from_int n) <. from_int k' <. sqrt (from_int (n+1))
+            so from_int n <. sqr (from_int k') <. from_int (n+1)
+            so n < k' * k' < n+1 }
+    else
+      assert { isqrt_2 (n+1) - 1 <= isqrt n
+            by k' <= k
+            so k' < k + 1
+            so floor (sqrt (from_int (n+1))) < k + 1
+            so sqrt (from_int (n+1)) <=. from_int (k + 1)
+            so isqrt_2 (n+1) <= k + 1 }
   )
+  
+let lemma sqrt_boundary2 (n: int) : unit
+  requires { n >= 1 }
+  ensures { isqrt n <= isqrt (n-1) + 1 } = ()
+  
 
 let compute_sqrt (n: int) (ghost x : real) (xp : int)
   requires { 0. <=. x }

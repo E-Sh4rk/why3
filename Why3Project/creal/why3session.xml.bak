@@ -5,7 +5,6 @@
 <prover id="0" name="Z3" version="4.6.0" timelimit="1" steplimit="0" memlimit="1000"/>
 <prover id="1" name="CVC4" version="1.5" timelimit="1" steplimit="0" memlimit="1000"/>
 <prover id="2" name="Alt-Ergo" version="2.2.0" timelimit="1" steplimit="0" memlimit="1000"/>
-<prover id="3" name="CVC3" version="2.4.1" timelimit="5" steplimit="0" memlimit="2000"/>
 <file name="../creal.mlw">
 <theory name="Top">
  <goal name="VC euclid_uniq" expl="VC for euclid_uniq" proved="true">
@@ -286,147 +285,145 @@
   </goal>
  </transf>
  </goal>
- <goal name="VC sqrt_boundaries" expl="VC for sqrt_boundaries">
- <transf name="split_all_full" >
+ <goal name="VC sqrt_boundaries" expl="VC for sqrt_boundaries" proved="true">
+ <transf name="split_all_full" proved="true" >
   <goal name="VC sqrt_boundaries.0" expl="assertion" proved="true">
   <transf name="split_all_full" proved="true" >
    <goal name="VC sqrt_boundaries.0.0" expl="VC for sqrt_boundaries" proved="true">
    <proof prover="2"><result status="valid" time="0.02" steps="12"/></proof>
    </goal>
    <goal name="VC sqrt_boundaries.0.1" expl="VC for sqrt_boundaries" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
+   <proof prover="1"><result status="valid" time="0.03"/></proof>
    </goal>
    <goal name="VC sqrt_boundaries.0.2" expl="VC for sqrt_boundaries" proved="true">
    <proof prover="2"><result status="valid" time="0.02" steps="82"/></proof>
    </goal>
    <goal name="VC sqrt_boundaries.0.3" expl="VC for sqrt_boundaries" proved="true">
-   <proof prover="1"><result status="valid" time="0.06"/></proof>
+   <proof prover="1"><result status="valid" time="0.09"/></proof>
    </goal>
    <goal name="VC sqrt_boundaries.0.4" expl="VC for sqrt_boundaries" proved="true">
    <proof prover="1"><result status="valid" time="0.06"/></proof>
    </goal>
    <goal name="VC sqrt_boundaries.0.5" expl="VC for sqrt_boundaries" proved="true">
-   <proof prover="2" timelimit="5" memlimit="2000"><result status="valid" time="1.72" steps="528"/></proof>
+   <proof prover="2" timelimit="5" memlimit="2000"><result status="valid" time="1.83" steps="528"/></proof>
    </goal>
   </transf>
   </goal>
-  <goal name="VC sqrt_boundaries.1" expl="precondition">
+  <goal name="VC sqrt_boundaries.1" expl="postcondition" proved="true">
+  <proof prover="1"><result status="valid" time="0.03"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="VC sqrt_boundary1" expl="VC for sqrt_boundary1">
+ <transf name="split_all_full" >
+  <goal name="VC sqrt_boundary1.0" expl="assertion">
+  <transf name="split_all_full" >
+   <goal name="VC sqrt_boundary1.0.0" expl="VC for sqrt_boundary1">
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="12"/></proof>
+   </goal>
+   <goal name="VC sqrt_boundary1.0.1" expl="VC for sqrt_boundary1">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC sqrt_boundary1.0.2" expl="VC for sqrt_boundary1">
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="82"/></proof>
+   </goal>
+   <goal name="VC sqrt_boundary1.0.3" expl="VC for sqrt_boundary1">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC sqrt_boundary1.0.4" expl="VC for sqrt_boundary1">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC sqrt_boundary1.0.5" expl="VC for sqrt_boundary1">
+   <proof prover="2" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="1.72" steps="528"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC sqrt_boundary1.1" expl="precondition">
   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
   </goal>
-  <goal name="VC sqrt_boundaries.2" expl="precondition">
+  <goal name="VC sqrt_boundary1.2" expl="precondition">
   <proof prover="1" obsolete="true"><result status="valid" time="0.02"/></proof>
   </goal>
-  <goal name="VC sqrt_boundaries.3" expl="assertion">
-  <proof prover="0"><result status="timeout" time="1.00"/></proof>
-  <proof prover="1"><result status="timeout" time="1.00"/></proof>
-  <proof prover="2"><result status="timeout" time="1.00"/></proof>
-  <proof prover="3" timelimit="1" memlimit="1000"><result status="highfailure" time="0.02"/></proof>
+  <goal name="VC sqrt_boundary1.3" expl="assertion">
+  <proof prover="2" timelimit="5" obsolete="true"><result status="valid" time="0.81" steps="1855"/></proof>
+  </goal>
+  <goal name="VC sqrt_boundary1.4" expl="assertion">
   <transf name="split_all_full" >
-   <goal name="VC sqrt_boundaries.3.0" expl="VC for sqrt_boundaries" proved="true">
-   <proof prover="1"><result status="valid" time="0.03"/></proof>
+   <goal name="VC sqrt_boundary1.4.0" expl="VC for sqrt_boundary1">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
    </goal>
-   <goal name="VC sqrt_boundaries.3.1" expl="VC for sqrt_boundaries" proved="true">
-   <proof prover="0"><result status="valid" time="0.02"/></proof>
-   <proof prover="1"><result status="timeout" time="1.00"/></proof>
+   <goal name="VC sqrt_boundary1.4.1" expl="VC for sqrt_boundary1">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
    </goal>
-   <goal name="VC sqrt_boundaries.3.2" expl="VC for sqrt_boundaries">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="timeout" time="5.00"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="timeout" time="5.00"/></proof>
-   <proof prover="2" timelimit="5" memlimit="2000"><result status="timeout" time="5.00"/></proof>
-   <proof prover="3"><result status="highfailure" time="0.03"/></proof>
+   <goal name="VC sqrt_boundary1.4.2" expl="VC for sqrt_boundary1">
    <transf name="introduce_premises" >
-    <goal name="VC sqrt_boundaries.3.2.0" expl="VC for sqrt_boundaries">
+    <goal name="VC sqrt_boundary1.4.2.0" expl="VC for sqrt_boundary1">
     <transf name="inline_goal" >
-     <goal name="VC sqrt_boundaries.3.2.0.0" expl="VC for sqrt_boundaries">
-     <proof prover="0" timelimit="30" memlimit="4000"><undone/></proof>
-     <proof prover="1" timelimit="30" memlimit="4000"><result status="timeout" time="30.00"/></proof>
+     <goal name="VC sqrt_boundary1.4.2.0.0" expl="VC for sqrt_boundary1">
+     <proof prover="2" timelimit="30" memlimit="4000" obsolete="true"><result status="valid" time="11.77" steps="22870"/></proof>
      </goal>
     </transf>
     </goal>
    </transf>
    </goal>
-   <goal name="VC sqrt_boundaries.3.3" expl="VC for sqrt_boundaries">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="highfailure" time="4.31"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="timeout" time="5.00"/></proof>
-   <proof prover="2" timelimit="5" memlimit="2000"><result status="timeout" time="5.00"/></proof>
-   <proof prover="3"><result status="highfailure" time="0.03"/></proof>
-   <transf name="introduce_premises" >
-    <goal name="VC sqrt_boundaries.3.3.0" expl="VC for sqrt_boundaries">
-    <proof prover="0" timelimit="30" memlimit="4000"><undone/></proof>
-    <proof prover="1" timelimit="30" memlimit="4000"><result status="timeout" time="30.00"/></proof>
-    </goal>
-   </transf>
+   <goal name="VC sqrt_boundary1.4.3" expl="VC for sqrt_boundary1">
+   <proof prover="2" obsolete="true"><result status="valid" time="0.86" steps="746"/></proof>
    </goal>
-   <goal name="VC sqrt_boundaries.3.4" expl="VC for sqrt_boundaries" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
+   <goal name="VC sqrt_boundary1.4.4" expl="VC for sqrt_boundary1">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.00"/></proof>
+   </goal>
+   <goal name="VC sqrt_boundary1.4.5" expl="VC for sqrt_boundary1">
+   <proof prover="0" obsolete="true"><result status="valid" time="0.02"/></proof>
+   </goal>
+   <goal name="VC sqrt_boundary1.4.6" expl="VC for sqrt_boundary1">
+   <proof prover="2" obsolete="true"><result status="valid" time="1.19" steps="661"/></proof>
+   </goal>
+   <goal name="VC sqrt_boundary1.4.7" expl="VC for sqrt_boundary1">
+   <proof prover="2" obsolete="true"><result status="valid" time="0.88" steps="660"/></proof>
+   </goal>
+   <goal name="VC sqrt_boundary1.4.8" expl="VC for sqrt_boundary1">
+   <proof prover="2" obsolete="true"><result status="valid" time="0.11" steps="162"/></proof>
+   </goal>
+   <goal name="VC sqrt_boundary1.4.9" expl="VC for sqrt_boundary1">
+   <proof prover="0" obsolete="true"><result status="valid" time="0.02"/></proof>
+   </goal>
+   <goal name="VC sqrt_boundary1.4.10" expl="VC for sqrt_boundary1">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC sqrt_boundary1.4.11" expl="VC for sqrt_boundary1">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
    </goal>
   </transf>
   </goal>
-  <goal name="VC sqrt_boundaries.4" expl="assertion" proved="true">
-  <proof prover="0"><result status="timeout" time="1.00"/></proof>
-  <proof prover="1"><result status="timeout" time="1.00"/></proof>
-  <proof prover="2"><result status="valid" time="0.88" steps="1859"/></proof>
-  </goal>
-  <goal name="VC sqrt_boundaries.5" expl="assertion">
-  <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="111"/></proof>
-  </goal>
-  <goal name="VC sqrt_boundaries.6" expl="postcondition">
-  <proof prover="1" obsolete="true"><result status="valid" time="0.02"/></proof>
-  </goal>
-  <goal name="VC sqrt_boundaries.7" expl="postcondition">
-  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
-  </goal>
-  <goal name="VC sqrt_boundaries.8" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="120"/></proof>
-  </goal>
-  <goal name="VC sqrt_boundaries.3">
-  <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="111"/></proof>
-  </goal>
-  <goal name="VC sqrt_boundaries.8">
+  <goal name="VC sqrt_boundary1.5" expl="assertion">
   <proof prover="0" obsolete="true"><result status="valid" time="0.03"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.50" steps="482"/></proof>
   </goal>
-  <goal name="VC sqrt_boundaries.4">
+  <goal name="VC sqrt_boundary1.6" expl="postcondition">
   <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
   </goal>
-  <goal name="VC sqrt_boundaries.5">
-  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
-  </goal>
-  <goal name="VC sqrt_boundaries.9">
+  <goal name="VC sqrt_boundary1.7" expl="postcondition">
   <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
   </goal>
-  <goal name="VC sqrt_boundaries.11">
-  <proof prover="0" timelimit="5" memlimit="2000"><result status="highfailure" time="4.20"/></proof>
-  <proof prover="1" timelimit="5" memlimit="2000"><result status="unknown" time="4.34"/></proof>
-  <proof prover="2" timelimit="5" memlimit="2000"><result status="timeout" time="5.00"/></proof>
-  <proof prover="3"><result status="highfailure" time="0.02"/></proof>
-  <transf name="introduce_premises" >
-   <goal name="VC sqrt_boundaries.11.0">
-   <transf name="inline_goal" >
-    <goal name="VC sqrt_boundaries.11.0.0">
-    <proof prover="0" timelimit="30" memlimit="4000"><result status="highfailure" time="26.28"/></proof>
-    <proof prover="1" timelimit="30" memlimit="4000"><result status="timeout" time="30.00"/></proof>
-    <proof prover="2" timelimit="30" memlimit="4000"><result status="valid" time="5.16" steps="4311"/></proof>
+  <goal name="VC sqrt_boundary1.8" expl="postcondition">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.03"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="22"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="VC sqrt_boundary2" expl="VC for sqrt_boundary2" proved="true">
+ <transf name="split_all_full" proved="true" >
+  <goal name="VC sqrt_boundary2.0" expl="postcondition" proved="true">
+  <transf name="introduce_premises" proved="true" >
+   <goal name="VC sqrt_boundary2.0.0" expl="postcondition" proved="true">
+   <transf name="inline_goal" proved="true" >
+    <goal name="VC sqrt_boundary2.0.0.0" expl="postcondition" proved="true">
+    <proof prover="1" timelimit="30" memlimit="4000"><result status="valid" time="12.33"/></proof>
     </goal>
    </transf>
    </goal>
   </transf>
-  </goal>
-  <goal name="VC sqrt_boundaries.6">
-  <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="170"/></proof>
-  </goal>
-  <goal name="VC sqrt_boundaries.7">
-  <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="30"/></proof>
   </goal>
  </transf>
  </goal>
