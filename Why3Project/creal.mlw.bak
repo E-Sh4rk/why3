@@ -303,9 +303,27 @@ let compute_sqrt (n: int) (ghost x : real) (xp : int)
           so sqrt x *. (_B n) <. sqrt (from_int xp +. 1.)
           /\ isqrt (xp + 1) <= isqrt xp + 1
           so sqrt x *. (_B n) <. from_int (isqrt xp + 1)
-          so sqrt x *. (_B n) <. from_int (isqrt xp + 1) } ;
+          so sqrt x *. (_B n) *. (_B (-n)) <. from_int (isqrt xp + 1) *. (_B (-n)) } ;
     isqrt xp
   )
 
+(* 5. Compute *)
 
+type term =
+| Cst int
+| Add term term
+| Neg term
+| Sub term term
+| Sqrt term
 
+rec function interp (t:term) : real =
+  match t with
+  | Cst i     -> from_int i
+  | Add t1 t2 -> (interp t1) +. (interp t2)
+  | Neg t     -> -. (interp t)
+  | Sub t1 t2 -> (interp t1) -. (interp t2)
+  | Sqrt t    -> sqrt (interp t)
+  end
+  
+  
+  

@@ -307,5 +307,23 @@ let compute_sqrt (n: int) (ghost x : real) (xp : int)
     isqrt xp
   )
 
+(* 5. Compute *)
 
+type term =
+| Cst int
+| Add term term
+| Neg term
+| Sub term term
+| Sqrt term
 
+let rec ghost function interp (t:term) : real =
+  match t with
+  | Cst i     -> from_int i
+  | Add t1 t2 -> (interp t1) +. (interp t2)
+  | Neg t     -> -. (interp t)
+  | Sub t1 t2 -> (interp t1) -. (interp t2)
+  | Sqrt t    -> sqrt (interp t)
+  end
+  
+  
+  
