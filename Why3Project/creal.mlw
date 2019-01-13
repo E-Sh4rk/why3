@@ -123,7 +123,8 @@ lemma _B_12 : forall y. 0 <= y -> power 2 (2 * y) = power 4 y
 predicate framing (x:real) (p:int) (n:int) =
   (from_int p -. 1.) *. (_B (-n)) <. x <. (from_int p +. 1.) *. (_B (-n))
 
-(* This definition is better because it uses the function _B for which we have proven some lemmas that will be useful. *)
+(* This definition is better because it uses the function _B for which we have proven some lemmas that will be useful.
+   It guides the SMT solvers towards the relevant lemmas to use. *)
 
 (* 1. Addition *)
 let round_z_over_4 (z : int)
@@ -275,9 +276,36 @@ let compute_sqrt (n: int) (ghost x : real) (xp : int)
   requires { framing x xp (2*n) }
   ensures { framing (sqrt x) result n } =
   if xp <= 0 then
+  (
+    assert { 0. <=. sqrt x <. _B (-n)
+          by (from_int xp +. 1.) <=. 1.
+          so 0. <=. x <. (from_int xp +. 1.) *. (_B (-2*n)) <=. (_B (-2*n))
+          so sqrt 0. <=. sqrt x <. sqrt (_B (-2*n)) } ;
     0
+  )
   else
+  (
+    assert { (from_int (isqrt xp) -. 1.) *. (_B (-n)) <. sqrt x
+          by (from_int xp -. 1.) *. (_B (-2*n)) <. x
+          so sqrt ((from_int xp -. 1.) *. (_B (-2*n))) <. sqrt x
+          so sqrt (from_int xp -. 1.) *. (_B (-n)) <. sqrt x
+          so sqrt (from_int xp -. 1.) *. (_B (-n)) *. (_B n) <. sqrt x *. (_B n)
+          so sqrt (from_int xp -. 1.) <. sqrt x *. (_B n)
+          /\ isqrt_2 xp - 1 <= isqrt (xp - 1)
+          so from_int (isqrt_2 (xp) - 1) <. sqrt x *. (_B n)
+          so from_int (isqrt (xp) - 1) <. sqrt x *. (_B n)
+          so from_int (isqrt (xp) - 1) *. (_B (-n)) <. sqrt x *. (_B n) *. (_B (-n)) } ;
+    assert { sqrt x <. (from_int (isqrt xp) +. 1.) *. (_B (-n))
+          by x <. (from_int xp +. 1.) *. (_B (-2*n))
+          so sqrt x <. sqrt ((from_int xp +. 1.) *. (_B (-2*n)))
+          so sqrt x <. sqrt (from_int xp +. 1.) *. (_B (-n))
+          so sqrt x *. (_B n) <. sqrt (from_int xp +. 1.) *. (_B (-n)) *. (_B n)
+          so sqrt x *. (_B n) <. sqrt (from_int xp +. 1.)
+          /\ isqrt (xp + 1) <= isqrt xp + 1
+          so sqrt x *. (_B n) <. from_int (isqrt xp + 1)
+          so sqrt x *. (_B n) *. (_B (-n)) <. from_int (isqrt xp + 1) *. (_B (-n)) } ;
     isqrt xp
+  )
 
 
 
