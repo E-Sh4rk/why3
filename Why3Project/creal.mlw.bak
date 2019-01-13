@@ -44,7 +44,6 @@ let ediv_mod (x:int) (y:int) : (int, int)
   requires { 0 < y }
   ensures { let d,r = result in
   d = ED.div x y /\ r = ED.mod x y } =
-  (* (ED.div x y, ED.mod x y) *)
   let q = ref 0 in
   let r = ref x in
   if 0 <= x then (
@@ -76,7 +75,6 @@ let function isqrt (n:int) : int
   requires { 0 <= n }
   ensures { result = floor (sqrt (from_int n)) }
   =
-  (* floor (sqrt (from_int n)) *)
   let count = ref 0 in
   let sum = ref 1 in
     while !sum <= n do
@@ -179,7 +177,7 @@ let compute_neg (n: int) (ghost x : real) (xp : int)
   ensures { framing (-.x) result n } =
   -xp
 
-let compute_sb (n: int) (ghost x : real) (xp : int) (ghost y : real) (yp : int)
+let compute_sub (n: int) (ghost x : real) (xp : int) (ghost y : real) (yp : int)
   requires { framing x xp (n+1) }
   requires { framing y yp (n+1) }
   ensures { framing (x-.y) result n } =
@@ -334,10 +332,17 @@ let rec ghost function wf_term (t:term) : bool =
   | Sqrt t    -> (wf_term t) && (interp t >=. 0.)
   end
   
-let compute (t:term) (n:int) : int
-  requires { wf_term t }
+let rec compute (t:term) (n:int) : int
+  (*requires { wf_term t }*)
   ensures { framing (interp t) result n }
+  variant { t }
   =
-  assume { false } ; 0
+  match t with
+  | Cst c     -> compute_cst n c
+  | Add t1 t2 -> compute_add n (interp t1) (compute t1 (n+1)) (interp t2) (compute t2 (n+1))
+  | Neg t     -> compute_neg n (interp t)  (compute t n)
+  | Sub t1 t2 -> compute_sub n (interp t1) (compute t1 (n+1)) (interp t2) (compute t2 (n+1))
+  | Sqrt t    -> compute_sqrt n (interp t) (compute t (2*n))
+  end
 
   
