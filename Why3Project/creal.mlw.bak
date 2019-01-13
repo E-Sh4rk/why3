@@ -316,7 +316,7 @@ type term =
 | Sub term term
 | Sqrt term
 
-rec function interp (t:term) : real =
+let rec ghost function interp (t:term) : real =
   match t with
   | Cst i     -> from_int i
   | Add t1 t2 -> (interp t1) +. (interp t2)
@@ -325,5 +325,19 @@ rec function interp (t:term) : real =
   | Sqrt t    -> sqrt (interp t)
   end
   
+let rec ghost function wf_term (t:term) : bool =
+  match t with
+  | Cst _     -> true
+  | Add t1 t2 -> (wf_term t1) && (wf_term t2)
+  | Neg t     -> wf_term t
+  | Sub t1 t2 -> (wf_term t1) && (wf_term t2)
+  | Sqrt t    -> (wf_term t) && (interp t >=. 0.)
+  end
   
+let compute (t:term) (n:int) : int
+  requires { wf_term t }
+  ensures { framing (interp t) result n }
+  =
+  assume { false } ; 0
+
   
