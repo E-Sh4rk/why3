@@ -365,9 +365,25 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
   let k = n + 1 in
   let d,r = ediv_mod (power2 (2*(n+k))) p in
   
-  assert { from_int d <=. (from_int p -. 1.) /. 2. } ;
-  assert { _B k <=. from_int p } ;
-  assert { _B k <=. from_int p } ;
+  assert { _B k <=. from_int p
+        by 1. <=. x <. from_int (p + 1) *. (_B (-k))
+        so 1. *. (_B k) <. from_int (p + 1) *. (_B (-k)) *. (_B k)
+        so (_B k) <. from_int (p + 1)
+        so power 4 k < p + 1 
+        so power 4 k <= p } ;
+  assert { _B n <=. from_int p /. 4. } ;
+  assert { (_B (n+k)) = (_B n) *. (_B k) <=. (from_int p /. 4.) *. (from_int p)
+        by _B (n+k) = (_B n) *. (_B k) /\ _B n <=. (from_int p /. 4.) /\ _B k <=. (from_int p)
+        so (_B n) *. (_B k) <=. (_B n) *. (from_int p) <=. (from_int p /. 4.) *. (from_int p)  } ;
+  assert { from_int d <=. (from_int p -. 1.) /. 2.
+        by d = ED.div (power 4 (n+k)) p /\ r = ED.mod (power 4 (n+k)) p
+        so power 4 (n+k) = p * d + r so p * d = power 4 (n+k) - r
+        so from_int d *. from_int p = from_int (power 4 (n+k) - r) = _B (n+k) -. from_int r <=. (from_int p /. 4.) *. (from_int p) -. from_int r
+        so from_int d *. from_int p <=. ((from_int p /. 4.) *. (from_int p) -. from_int r)
+        so from_int d *. from_int p *. inv (from_int p)  <=. ((from_int p /. 4.) *. (from_int p) -. from_int r) *. inv (from_int p)
+        /\ from_int p *. inv (from_int p) = 1.
+        so from_int d *. 1. <=. ((from_int p /. 4.) *. (from_int p) -. from_int r) *. inv (from_int p)
+        so from_int d <=. ((from_int p /. 4.) *. (from_int p) -. from_int r) /. (from_int p) } ;
   
   if 2*r <= p then d else d+1
   
