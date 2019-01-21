@@ -121,8 +121,7 @@ lemma _B_12 : forall y. 0 <= y -> power 2 (2 * y) = power 4 y
 predicate framing (x:real) (p:int) (n:int) =
   (from_int p -. 1.) *. (_B (-n)) <. x <. (from_int p +. 1.) *. (_B (-n))
 
-(* This definition is better because it uses the function _B for which we have proven some lemmas that will be useful.
-   It guides the SMT solvers towards the relevant lemmas to use. *)
+(* This definition is better because it is separated into 2 simpler inequalities. So we can prove them separately (it is simpler). *)
 
 (* 1. Addition *)
 let round_z_over_4 (z : int)
@@ -333,7 +332,7 @@ let rec ghost function wf_term (t:term) : bool =
   end
   
 let rec compute (t:term) (n:int) : int
-  (*requires { wf_term t }*)
+  requires { wf_term t }
   ensures { framing (interp t) result n }
   variant { t }
   =
@@ -344,5 +343,32 @@ let rec compute (t:term) (n:int) : int
   | Sub t1 t2 -> compute_sub n (interp t1) (compute t1 (n+1)) (interp t2) (compute t2 (n+1))
   | Sqrt t    -> compute_sqrt n (interp t) (compute t (2*n))
   end
+  
+(* ---------- PART V ---------- *)
 
+let lemma eucl_div_1 (a: int) (b: int) : unit
+  requires { 0 < a /\ 0 < b /\ ED.div a b < b }
+  ensures { (ED.mod a b < ED.div a b  -> ED.div a (b+1) = (ED.div a b) - 1)
+         /\ (ED.mod a b >= ED.div a b -> ED.div a (b+1) = (ED.div a b)) } = ()
+  
+let lemma eucl_div_2 (a: int) (b: int) : unit
+  requires { 0 < a /\ 1 < b /\ ED.div a b < b - 1 }
+  ensures { ( b - 1 - ED.div a b <= ED.mod a b -> ED.div a (b-1) = (ED.div a b) + 1)
+         /\ ( b - 1 - ED.div a b > ED.mod a b  -> ED.div a (b-1) = (ED.div a b)) } = ()
+  
+let inv_simple_simple (ghost x:real) (p:int) (n:int)
+  requires { framing x p (n+1) }
+  requires { 0 <= n }
+  requires { 1. <=. x }
+  ensures { framing (inv x) result n } =
+  
+  let k = n + 1 in
+  let d,r = ediv_mod (power2 (2*(n+k))) p in
+  
+  assert { from_int d <=. (from_int p -. 1.) /. 2. } ;
+  assert { _B k <=. from_int p } ;
+  assert { _B k <=. from_int p } ;
+  
+  if 2*r <= p then d else d+1
+  
   

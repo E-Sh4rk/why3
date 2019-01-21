@@ -5,8 +5,8 @@
 <prover id="0" name="Z3" version="4.6.0" timelimit="1" steplimit="0" memlimit="1000"/>
 <prover id="1" name="CVC4" version="1.5" timelimit="1" steplimit="0" memlimit="1000"/>
 <prover id="2" name="Alt-Ergo" version="2.2.0" timelimit="1" steplimit="0" memlimit="1000"/>
-<file name="../creal.mlw" proved="true">
-<theory name="Top" proved="true">
+<file name="../creal.mlw">
+<theory name="Top">
  <goal name="VC euclid_uniq" expl="VC for euclid_uniq" proved="true">
  <proof prover="1"><result status="valid" time="0.02"/></proof>
  </goal>
@@ -519,6 +519,18 @@
  </goal>
  <goal name="VC compute" expl="VC for compute" proved="true">
  <proof prover="1"><result status="valid" time="0.34"/></proof>
+ </goal>
+ <goal name="VC eucl_div_1" expl="VC for eucl_div_1" proved="true">
+ <proof prover="0"><result status="valid" time="0.05"/></proof>
+ </goal>
+ <goal name="VC eucl_div_2" expl="VC for eucl_div_2" proved="true">
+ <transf name="split_all_full" proved="true" >
+  <goal name="VC eucl_div_2.0" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.08"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="VC inv_simple_simple" expl="VC for inv_simple_simple">
  </goal>
 </theory>
 </file>
