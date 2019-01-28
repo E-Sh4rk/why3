@@ -436,7 +436,7 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
   if 2*r <= p
   then
   (
-    assert { r + d + 1 < p
+    assert { dm = d
           by 0 < p - 2 /\ 0 < p so 0 = 0*p < (p-2)*p = p*p - 2 *p
           so 0 + (3*p*p + 2*p) < p*p - 2*p + (3*p*p + 2*p)
           so 2*p*(p-1) + p*p + 4*p = 3*p*p + 2*p < 4*p*p
@@ -454,11 +454,15 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
              <=. from_int (p*p) /. 4. -. from_int r
           so from_int (d*p) +. (from_int r) *. from_int p +. from_int (p)
              <=. from_int (p*p) /. 4. -. from_int r +. (from_int r) *. from_int p +. from_int (p) <. from_int (p*p)
-          so from_int d +. from_int r +. 1. = (from_int (d*p) +. (from_int r) *. from_int p +. from_int (p)) /. (from_int p)
+          so from_int d +. from_int r +. 1. = from_int (d*p) /. (from_int p) +. (from_int r) *. from_int p /. (from_int p) +. from_int (p) /. (from_int p)
+             = (from_int (d*p) +. (from_int r) *. from_int p +. from_int (p)) /. (from_int p)
              <=. from_int (p*p) /. (from_int p) = from_int p
- 
-           } ; 
-    assert { (from_int d -. 1.) *. (_B (-n)) <. inv x  } ;
+          so r + d + 1 < p } ; 
+    assert { (from_int d -. 1.) *. (_B (-n)) <. inv x
+          by d - 1 <= dp so from_int (d - 1) <=. from_int dp = from_int (ED.div pow4nk (p+1)) <=. from_int pow4nk /. (from_int (p+1))
+             = from_int pow4nk *. inv (from_int (p+1)) <. inv x *. (_B n)
+          so from_int d -. 1. <. inv x *. _B n /\ (_B (-n)) >=. 0.
+          so (from_int d -. 1.) *. (_B (-n)) <. inv x *. _B n *. (_B (-n)) } ;
     assert { inv x <. (from_int d +. 1.) *. (_B (-n)) } ;
     d
   )
