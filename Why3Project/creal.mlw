@@ -356,10 +356,27 @@ let lemma eucl_div_2 (a: int) (b: int) : unit
   ensures { ( b - 1 - ED.div a b <= ED.mod a b -> ED.div a (b-1) = (ED.div a b) + 1)
          /\ ( b - 1 - ED.div a b > ED.mod a b  -> ED.div a (b-1) = (ED.div a b)) } = ()
          
+let lemma eucl_div_cor_2 (a: int) (b: int) : unit
+  requires { 0 < a /\ 1 < b /\ ED.div a b < b - 1 }
+  ensures { ED.div a (b-1) <= (ED.div a b) + 1 } =
+  assert { ED.div a (b-1) = (ED.div a b) + 1 \/ ED.div a (b-1) = (ED.div a b) }
+
+let lemma strict_ineq (x:real) (y:real) (z:real) : unit
+  requires { x <. y /\ z >. 0. }
+  ensures { x *. z <. y *. z } = ()
+
 let lemma inv_ineq (x:real) (y:real) : unit
   requires { 0. <. x <. y }
   ensures { inv y <. inv x } = ()
-         
+
+let lemma div_ineq (x:int) (y:int) : unit
+  requires { 0 < y }
+  ensures { from_int (ED.div x y) <=. from_int x /. from_int y } =
+  let ghost d = ED.div x y in
+  let ghost r = ED.mod x y in
+  assert { from_int d <=. from_int x /. from_int y
+        by d*y + r = x so d*y = x - r so d*y <= x so from_int d *. from_int y <=. from_int x }
+ 
 let inv_simple_simple (ghost x:real) (p:int) (n:int)
   requires { framing x p (n+1) }
   requires { 0 <= n }
@@ -406,7 +423,9 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
         so inv x *. _B n <. inv (from_int (p-1)) *. _B k *. _B n = inv (from_int (p-1)) *. (from_int pow4nk) } ;
   
   let ghost dm = ED.div pow4nk (p-1) in
+  let ghost rm = ED.mod pow4nk (p-1) in
   let ghost dp = ED.div pow4nk (p+1) in
+  
   if 2*r <= p
   then
   (
@@ -416,9 +435,26 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
   )
   else
   (
-    assert { r > d
-          by 2*r >= p +1 > p-1 >= 2*d } ;
-    assert { (from_int d) *. (_B (-n)) <. inv x <. (from_int d +. 2.) *. (_B (-n)) } ;
+    assert { r > d by 2*r >= p +1 > p-1 >= 2*d } ;
+    assert { (from_int d) *. (_B (-n)) <. inv x
+          by from_int d <=. from_int dp = from_int (ED.div pow4nk (p+1)) <=. from_int pow4nk /. (from_int (p+1))
+             = from_int pow4nk *. inv (from_int (p+1)) <. inv x *. (_B n)
+          so from_int d <. inv x *. _B n /\ (_B (-n)) >=. 0.
+          so (from_int d) *. (_B (-n)) <. inv x *. _B n *. (_B (-n)) } ;
+    assert { dm <= d+1 by ED.div pow4nk (p-1) <= (ED.div pow4nk p) + 1 } ;
+    assert { inv x <. (from_int d +. 2.) *. (_B (-n))
+          by inv x *. (_B n) <. from_int pow4nk *. inv (from_int (p-1)) = from_int ((p-1)*dm+rm) *. inv (from_int (p-1))
+             = from_int ((p-1)*dm) *. inv (from_int (p-1)) +. from_int rm *. inv (from_int (p-1))
+             = from_int dm *. (from_int (p-1) *. inv (from_int (p-1))) +. from_int rm *. inv (from_int (p-1))
+             = from_int dm *. 1. +. from_int rm *. inv (from_int (p-1)) = from_int dm +. from_int rm *. inv (from_int (p-1))
+             /\ from_int rm <=. from_int (p-1)
+          so from_int rm *. inv (from_int (p-1)) <=. (from_int (p-1)) *. inv (from_int (p-1)) = 1. /\ from_int dm <=. from_int d +. 1.
+          so from_int dm +. from_int rm *. inv (from_int (p-1)) <=. from_int dm +. 1. <=. (from_int d +. 1.) +. 1. <=. from_int d +. 2.
+          so inv x *. (_B n) <. from_int dm +. from_int rm *. inv (from_int (p-1)) <=. from_int d +. 2.
+          so inv x *. (_B n) <. from_int d +. 2. /\ inv (_B n) >. 0.
+          so (inv x *. (_B n)) *. inv (_B n) <=. (from_int d +. 2.) *. inv (_B n) /\ (inv x *. (_B n)) *. inv (_B n) <> (from_int d +. 2.) *. inv (_B n)
+          so (_B n) *. inv (_B n) = 1. so inv x *. ((_B n) *. inv (_B n)) = inv x *. 1. = inv x
+              } ;
     d+1
   )
   
