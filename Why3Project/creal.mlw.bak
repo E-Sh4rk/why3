@@ -511,7 +511,27 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
   )
   
   
+ let inv_simple (ghost x) p m n
+  requires { 0 <= m }
+  requires { 0 <= n }
+  requires { _B (-m) <. x }
+  requires { framing x p (n+1+2*m) }
+  ensures { framing (inv x) result n
+         by framing (inv (x *. _B m)) result (n+m)
+         so (from_int result -. 1.) *. _B (-n-m) <. inv (x *. _B m) <. (from_int result +. 1.) *. _B (-n-m)
+         so (from_int result -. 1.) *. _B (-n-m) <. inv x *. inv (_B m) <. (from_int result +. 1.) *. _B (-n-m)
+         so (from_int result -. 1.) *. _B (-n-m) *. _B m <. inv x *. inv (_B m) *. _B m <. (from_int result +. 1.) *. _B (-n-m) *. _B m
+         so (from_int result -. 1.) *. _B (-n) = (from_int result -. 1.) *. _B (-n-m+m) <. inv x *. inv (_B m) *. _B m
+            <. (from_int result +. 1.) *. _B (-n-m+m) = (from_int result +. 1.) *. _B (-n) } =
   
+  assert { framing (x *. _B m) p (n+m+1) 
+        by (from_int p -. 1.) *. (_B (-n-1-2*m)) <. x <. (from_int p +. 1.) *. (_B (-n-1-2*m))
+        so (from_int p -. 1.) *. (_B (-n-1-2*m)) *. _B m <. x *. _B m <. (from_int p +. 1.) *. (_B (-n-1-2*m)) *. _B m
+        so (from_int p -. 1.) *. (_B (-(n+m+1))) = (from_int p -. 1.) *. (_B (-n-1-2*m + m))
+           = (from_int p -. 1.) *. (_B (-n-1-2*m)) *. _B m <. x *. _B m <. (from_int p +. 1.) *. (_B (-n-1-2*m)) *. _B m
+           = (from_int p +. 1.) *. (_B (-n-1-2*m + m)) = (from_int p +. 1.) *. (_B (-(n+m+1)))
+         } ;
+  inv_simple_simple (x *. _B m) p (n+m)
   
   
   
