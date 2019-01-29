@@ -6,8 +6,8 @@
 <prover id="1" name="CVC4" version="1.5" timelimit="1" steplimit="0" memlimit="1000"/>
 <prover id="2" name="Alt-Ergo" version="2.2.0" timelimit="1" steplimit="0" memlimit="1000"/>
 <prover id="3" name="CVC3" version="2.4.1" timelimit="1" steplimit="0" memlimit="1000"/>
-<file name="../creal.mlw" proved="true">
-<theory name="Top" proved="true">
+<file name="../creal.mlw">
+<theory name="Top">
  <goal name="VC euclid_uniq" expl="VC for euclid_uniq" proved="true">
  <proof prover="1"><result status="valid" time="0.02"/></proof>
  </goal>
@@ -1241,6 +1241,19 @@
   </transf>
   </goal>
  </transf>
+ </goal>
+ <goal name="VC infix &lt;&gt;." expl="VC for infix <>." proved="true">
+ <proof prover="1"><result status="valid" time="0.05"/></proof>
+ </goal>
+ <goal name="VC interp&#39;" expl="VC for interp'" proved="true">
+ <proof prover="1"><result status="valid" time="0.05"/></proof>
+ </goal>
+ <goal name="VC wf_term&#39;" expl="VC for wf_term'" proved="true">
+ <proof prover="1"><result status="valid" time="0.03"/></proof>
+ </goal>
+ <goal name="VC compute&#39;" expl="VC for compute'">
+ </goal>
+ <goal name="VC msd" expl="VC for msd">
  </goal>
 </theory>
 </file>

@@ -346,6 +346,8 @@ let rec compute (t:term) (n:int) : int
   
 (* ---------- PART V ---------- *)
 
+(* Some lemmas *)
+
 let lemma eucl_div_1 (a: int) (b: int) : unit
   requires { 0 < a /\ 0 < b /\ ED.div a b < b }
   ensures { (ED.mod a b < ED.div a b  -> ED.div a (b+1) = (ED.div a b) - 1)
@@ -385,6 +387,8 @@ let lemma div_ineq (x:int) (y:int) : unit
   let ghost r = ED.mod x y in
   assert { from_int d <=. from_int x /. from_int y
         by d*y + r = x so d*y = x - r so d*y <= x so from_int d *. from_int y <=. from_int x }
+        
+(* Inverse *)
  
 let inv_simple_simple (ghost x:real) (p:int) (n:int)
   requires { framing x p (n+1) }
@@ -522,7 +526,7 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
          so (from_int result -. 1.) *. _B (-n-m) <. inv x *. inv (_B m) <. (from_int result +. 1.) *. _B (-n-m)
          so (from_int result -. 1.) *. _B (-n-m) *. _B m <. inv x *. inv (_B m) *. _B m <. (from_int result +. 1.) *. _B (-n-m) *. _B m
          so (from_int result -. 1.) *. _B (-n) = (from_int result -. 1.) *. _B (-n-m+m) <. inv x *. inv (_B m) *. _B m
-            <. (from_int result +. 1.) *. _B (-n-m+m) = (from_int result +. 1.) *. _B (-n) } =
+            <. (from_int result +. 1.) *. _B (-n-m+m) = (from_int result +. 1.) *. _B (-n) /\ inv x *. inv (_B m) *. _B m = inv x } =
   
   assert { framing (x *. _B m) p (n+m+1) 
         by (from_int p -. 1.) *. (_B (-n-1-2*m)) <. x <. (from_int p +. 1.) *. (_B (-n-1-2*m))
@@ -533,8 +537,78 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
          } ;
   inv_simple_simple (x *. _B m) p (n+m)
   
+(* Compute *)
+
+let predicate (<>.) (x:real) (y:real) = x <. y || x >. y
+
+type term' =
+  | Cst' int
+  | Add' term' term'
+  | Neg' term'
+  | Sub' term' term'
+  | Sqrt' term'
+  | Inv' term'
+
+let rec ghost function interp' (t:term') : real =
+  match t with
+  | Cst' i     -> from_int i
+  | Add' t1 t2 -> (interp' t1) +. (interp' t2)
+  | Neg' t     -> -. (interp' t)
+  | Sub' t1 t2 -> (interp' t1) -. (interp' t2)
+  | Sqrt' t    -> sqrt (interp' t)
+  | Inv' t     -> inv (interp' t)
+  end
   
+let rec ghost function wf_term' (t:term') : bool =
+  match t with
+  | Cst' _     -> true
+  | Add' t1 t2 -> (wf_term' t1) && (wf_term' t2)
+  | Neg' t     -> wf_term' t
+  | Sub' t1 t2 -> (wf_term' t1) && (wf_term' t2)
+  | Sqrt' t    -> (wf_term' t) && (interp' t >=. 0.)
+  | Inv' t     -> (wf_term' t) && (interp' t <>. 0.)
+  end
   
+let rec compute' (t:term') (n:int) : int
+  requires { wf_term' t }
+  requires { 0 <= n }
+  ensures { framing (interp' t) result n }
+  =
+  match t with
+  | Cst' c     -> compute_cst n c
+  | Add' t1 t2 -> compute_add n (interp' t1) (compute' t1 (n+1)) (interp' t2) (compute' t2 (n+1))
+  | Neg' t     -> compute_neg n (interp' t)  (compute' t n)
+  | Sub' t1 t2 -> compute_sub n (interp' t1) (compute' t1 (n+1)) (interp' t2) (compute' t2 (n+1))
+  | Sqrt' t    -> compute_sqrt n (interp' t) (compute' t (2*n))
+  | Inv' t ->
+  let m,sgn = msd t 0 (compute' t 0) in
+  let p = compute' t (n+1+2*m) in
+  let x = interp' x in
+  if sgn
+  then
+    inv_simple x p m n
+  else
+    - (inv_simple (-. x) (-p) m n)
+  end
   
+with msd (t:term') (n:int) (c:int) : (int, bool)
+  requires { 0 <= n }
+  requires { wf_term' t }
+  requires { interp' t <>. 0. }
+  requires { framing (interp' t) c n }
+  ensures { let m,sgn = result in
+            0 <= m /\
+            if sgn then _B (-m) <. interp' t else interp' t <. -. _B (-m)
+          }
+  =
+  if c = 0 || c = 1 || c = -1 then begin
+    let c = compute' t (n+1) in
+    msd t (n+1) c
+  end else begin
+    if 1 < c then
+      n, true
+    else
+      n, false
+  end
   
   
