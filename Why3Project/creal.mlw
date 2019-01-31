@@ -573,6 +573,7 @@ let rec compute' (t:term') (n:int) : int
   requires { wf_term' t }
   requires { 0 <= n }
   ensures { framing (interp' t) result n }
+  diverges
   =
   match t with
   | Cst' c     -> compute_cst n c
@@ -588,7 +589,12 @@ let rec compute' (t:term') (n:int) : int
   then
     inv_simple x p m n
   else
-    - (inv_simple (-. x) (-p) m n)
+    let res = inv_simple (-. x) (-p) m n in
+    assert { framing (inv x) (-res) n
+          by framing (inv (-.x)) res n
+          so (from_int res -. 1.) *. _B (-n) <. inv (-.x) <. (from_int res +. 1.) *. _B (-n) /\ inv (-.x) = -. (inv x)
+          so (from_int res -. 1.) *. _B (-n) <. -.(inv x) <. (from_int res +. 1.) *. _B (-n) } ;
+    -res
   end
   
 with msd (t:term') (n:int) (c:int) : (int, bool)
@@ -600,15 +606,25 @@ with msd (t:term') (n:int) (c:int) : (int, bool)
             0 <= m /\
             if sgn then _B (-m) <. interp' t else interp' t <. -. _B (-m)
           }
+  diverges
   =
   if c = 0 || c = 1 || c = -1 then begin
     let c = compute' t (n+1) in
     msd t (n+1) c
   end else begin
-    if 1 < c then
+    if 1 < c then (
+      assert { _B (-n) <. interp' t
+            by framing (interp' t) c n
+            so (from_int c -. 1.) *. _B (-n) <. interp' t /\ (from_int c -. 1.) >=. 1.
+            so _B (-n) <=. (from_int c -. 1.) *. _B (-n) <. interp' t } ;
       n, true
-    else
+    ) else (
+      assert { interp' t <. -. (_B (-n))
+            by framing (interp' t) c n /\ c < -1
+            so interp' t <. (from_int c +. 1.) *. _B (-n) /\ (from_int c +. 1.) <=. -. 1.
+            so interp' t <. (from_int c +. 1.) *. _B (-n) <=. (-. 1.) *. _B (-n) } ;
       n, false
+    )
   end
   
   
