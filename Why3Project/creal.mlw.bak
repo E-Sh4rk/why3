@@ -571,13 +571,17 @@ let rec ghost function wf_term' (t:term') : bool =
   | Inv' t     -> (wf_term' t) && (interp' t <>. 0.)
   end
   
-let ghost function m_upper_bound (t:term') : int = - (floor (log2 (abs (interp' t))))
+let ghost function m_upper_bound (t:term') : int =
+  let x = abs (interp' t) in
+  if x <=. 1.
+  then - (floor (log2 x))
+  else 0
   
 let rec compute' (t:term') (n:int) : int
   requires { wf_term' t }
   requires { 0 <= n }
   ensures { framing (interp' t) result n }
-  diverges
+  variant { t, (m_upper_bound t) - n }
   =
   match t with
   | Cst' c     -> compute_cst n c
@@ -610,8 +614,9 @@ with msd (t:term') (n:int) (c:int) : (int, bool)
             0 <= m /\
             if sgn then _B (-m) <. interp' t else interp' t <. -. _B (-m)
           }
-  diverges
+  variant { t, (m_upper_bound t) - n }
   =
+  assume {  } ;
   if c = 0 || c = 1 || c = -1 then begin
     let c = compute' t (n+1) in
     msd t (n+1) c
