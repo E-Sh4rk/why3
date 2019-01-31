@@ -539,6 +539,8 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
   
 (* Compute *)
 
+use real.Abs
+
 let predicate (<>.) (x:real) (y:real) = x <. y || x >. y
 
 type term' =
@@ -568,6 +570,8 @@ let rec ghost function wf_term' (t:term') : bool =
   | Sqrt' t    -> (wf_term' t) && (interp' t >=. 0.)
   | Inv' t     -> (wf_term' t) && (interp' t <>. 0.)
   end
+  
+let ghost function m_upper_bound (t:term') : int = - (floor (log2 (abs (interp' t))))
   
 let rec compute' (t:term') (n:int) : int
   requires { wf_term' t }
@@ -622,7 +626,7 @@ with msd (t:term') (n:int) (c:int) : (int, bool)
       assert { interp' t <. -. (_B (-n))
             by framing (interp' t) c n /\ c < -1
             so interp' t <. (from_int c +. 1.) *. _B (-n) /\ (from_int c +. 1.) <=. -. 1.
-            so interp' t <. (from_int c +. 1.) *. _B (-n) <. (-. 1.) *. _B (-n) } ;
+            so interp' t <. (from_int c +. 1.) *. _B (-n) <=. (-. 1.) *. _B (-n) } ;
       n, false
     )
   end

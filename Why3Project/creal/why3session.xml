@@ -1246,6 +1246,9 @@
  <goal name="VC wf_term&#39;" expl="VC for wf_term'" proved="true">
  <proof prover="1"><result status="valid" time="0.03"/></proof>
  </goal>
+ <goal name="VC m_upper_bound" expl="VC for m_upper_bound" proved="true">
+ <proof prover="1"><result status="valid" time="0.05"/></proof>
+ </goal>
  <goal name="VC compute&#39;" expl="VC for compute'" proved="true">
  <transf name="split_all_full" proved="true" >
   <goal name="VC compute&#39;.0" expl="postcondition" proved="true">

@@ -539,6 +539,8 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
   
 (* Compute *)
 
+use real.Abs
+
 let predicate (<>.) (x:real) (y:real) = x <. y || x >. y
 
 type term' =
@@ -569,11 +571,13 @@ let rec ghost function wf_term' (t:term') : bool =
   | Inv' t     -> (wf_term' t) && (interp' t <>. 0.)
   end
   
+let ghost function m_upper_bound (t:term') : int = - (floor (log2 (abs (interp' t))))
+  
 let rec compute' (t:term') (n:int) : int
   requires { wf_term' t }
   requires { 0 <= n }
   ensures { framing (interp' t) result n }
-  diverges
+  diverges (* variant { (t, (m_upper_bound t) - n) } *)
   =
   match t with
   | Cst' c     -> compute_cst n c
@@ -606,7 +610,7 @@ with msd (t:term') (n:int) (c:int) : (int, bool)
             0 <= m /\
             if sgn then _B (-m) <. interp' t else interp' t <. -. _B (-m)
           }
-  diverges
+  diverges (* variant { (t, (m_upper_bound t) - n) } *)
   =
   if c = 0 || c = 1 || c = -1 then begin
     let c = compute' t (n+1) in
