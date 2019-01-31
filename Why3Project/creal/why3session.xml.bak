@@ -5,9 +5,9 @@
 <prover id="0" name="Z3" version="4.6.0" timelimit="1" steplimit="0" memlimit="1000"/>
 <prover id="1" name="CVC4" version="1.5" timelimit="1" steplimit="0" memlimit="1000"/>
 <prover id="2" name="Alt-Ergo" version="2.2.0" timelimit="1" steplimit="0" memlimit="1000"/>
-<prover id="3" name="CVC3" version="2.4.1" timelimit="1" steplimit="0" memlimit="1000"/>
-<file name="../creal.mlw" proved="true">
-<theory name="Top" proved="true">
+<prover id="3" name="CVC3" version="2.4.1" timelimit="5" steplimit="0" memlimit="1000"/>
+<file name="../creal.mlw">
+<theory name="Top">
  <goal name="VC euclid_uniq" expl="VC for euclid_uniq" proved="true">
  <proof prover="1"><result status="valid" time="0.02"/></proof>
  </goal>
@@ -1247,13 +1247,13 @@
  <goal name="VC wf_term&#39;" expl="VC for wf_term'" proved="true">
  <proof prover="1"><result status="valid" time="0.03"/></proof>
  </goal>
- <goal name="VC m_upper_bound" expl="VC for m_upper_bound" proved="true">
+ <goal name="VC msd_variant" expl="VC for msd_variant" proved="true">
  <proof prover="1"><result status="valid" time="0.05"/></proof>
  </goal>
  <goal name="VC compute&#39;" expl="VC for compute'" proved="true">
  <transf name="split_all_full" proved="true" >
   <goal name="VC compute&#39;.0" expl="variant decrease" proved="true">
-  <proof prover="1"><result status="valid" time="0.06"/></proof>
+  <proof prover="1"><result status="valid" time="0.08"/></proof>
   </goal>
   <goal name="VC compute&#39;.1" expl="precondition" proved="true">
   <proof prover="1"><result status="valid" time="0.06"/></proof>
@@ -1277,7 +1277,7 @@
   <proof prover="1"><result status="valid" time="0.03"/></proof>
   </goal>
   <goal name="VC compute&#39;.8" expl="variant decrease" proved="true">
-  <proof prover="1"><result status="valid" time="0.08"/></proof>
+  <proof prover="1"><result status="valid" time="0.05"/></proof>
   </goal>
   <goal name="VC compute&#39;.9" expl="precondition" proved="true">
   <proof prover="1"><result status="valid" time="0.03"/></proof>
@@ -1289,7 +1289,7 @@
   <proof prover="1"><result status="valid" time="0.02"/></proof>
   </goal>
   <goal name="VC compute&#39;.12" expl="variant decrease" proved="true">
-  <proof prover="1"><result status="valid" time="0.05"/></proof>
+  <proof prover="1"><result status="valid" time="0.08"/></proof>
   </goal>
   <goal name="VC compute&#39;.13" expl="precondition" proved="true">
   <proof prover="1"><result status="valid" time="0.08"/></proof>
@@ -1298,7 +1298,7 @@
   <proof prover="1"><result status="valid" time="0.08"/></proof>
   </goal>
   <goal name="VC compute&#39;.15" expl="variant decrease" proved="true">
-  <proof prover="1"><result status="valid" time="0.08"/></proof>
+  <proof prover="1"><result status="valid" time="0.09"/></proof>
   </goal>
   <goal name="VC compute&#39;.16" expl="precondition" proved="true">
   <proof prover="1"><result status="valid" time="0.06"/></proof>
@@ -1313,7 +1313,7 @@
   <proof prover="1"><result status="valid" time="0.03"/></proof>
   </goal>
   <goal name="VC compute&#39;.20" expl="variant decrease" proved="true">
-  <proof prover="1"><result status="valid" time="0.08"/></proof>
+  <proof prover="1"><result status="valid" time="0.06"/></proof>
   </goal>
   <goal name="VC compute&#39;.21" expl="precondition" proved="true">
   <proof prover="1"><result status="valid" time="0.09"/></proof>
@@ -1328,7 +1328,7 @@
   <proof prover="1"><result status="valid" time="0.05"/></proof>
   </goal>
   <goal name="VC compute&#39;.25" expl="variant decrease" proved="true">
-  <proof prover="1"><result status="valid" time="0.09"/></proof>
+  <proof prover="1"><result status="valid" time="0.08"/></proof>
   </goal>
   <goal name="VC compute&#39;.26" expl="precondition" proved="true">
   <proof prover="1"><result status="valid" time="0.06"/></proof>
@@ -1453,347 +1453,815 @@
   </goal>
  </transf>
  </goal>
- <goal name="VC msd" expl="VC for msd" proved="true">
- <transf name="split_all_full" proved="true" >
-  <goal name="VC msd.0" expl="variant decrease" proved="true">
-  <proof prover="0"><result status="valid" time="0.03"/></proof>
-  <proof prover="1"><result status="valid" time="0.05"/></proof>
-  <proof prover="2"><result status="valid" time="0.02" steps="22"/></proof>
-  <proof prover="3"><result status="valid" time="0.05"/></proof>
-  <transf name="split_all_full" proved="true" >
-   <goal name="VC msd.0.0" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.05"/></proof>
-   <proof prover="2" timelimit="5" memlimit="2000"><result status="valid" time="0.02" steps="22"/></proof>
-   <proof prover="3"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.0.1" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
-   </goal>
-   <goal name="VC msd.0.2" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="2" timelimit="5" memlimit="2000"><result status="valid" time="0.00" steps="22"/></proof>
-   <proof prover="3"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.0.3" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.0.4" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.05"/></proof>
-   <proof prover="2"><result status="valid" time="0.00" steps="22"/></proof>
-   <proof prover="3"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.0.5" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.0.6" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="22"/></proof>
-   <proof prover="3"><result status="valid" time="0.05"/></proof>
-   </goal>
-   <goal name="VC msd.0.7" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.02"/></proof>
-   </goal>
-   <goal name="VC msd.0.8" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="22"/></proof>
-   <proof prover="3"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.0.9" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
-   </goal>
-   <goal name="VC msd.0.10" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.06"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="22"/></proof>
-   <proof prover="3"><result status="valid" time="0.05"/></proof>
-   </goal>
-   <goal name="VC msd.0.11" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
-   </goal>
-  </transf>
-  </goal>
-  <goal name="VC msd.1" expl="precondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.05"/></proof>
-  </goal>
-  <goal name="VC msd.2" expl="precondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.06"/></proof>
-  </goal>
-  <goal name="VC msd.3" expl="variant decrease" proved="true">
-  <proof prover="0"><result status="valid" time="0.02"/></proof>
-  <proof prover="1"><result status="valid" time="0.05"/></proof>
-  <proof prover="2"><result status="valid" time="0.00" steps="24"/></proof>
-  <transf name="split_all_full" proved="true" >
-   <goal name="VC msd.3.0" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.06"/></proof>
-   <proof prover="2"><result status="valid" time="0.03" steps="24"/></proof>
-   </goal>
-   <goal name="VC msd.3.1" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.06"/></proof>
-   </goal>
-   <goal name="VC msd.3.2" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.05"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="24"/></proof>
-   </goal>
-   <goal name="VC msd.3.3" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.08"/></proof>
-   </goal>
-   <goal name="VC msd.3.4" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.05"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="24"/></proof>
-   </goal>
-   <goal name="VC msd.3.5" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
-   </goal>
-   <goal name="VC msd.3.6" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="24"/></proof>
-   </goal>
-   <goal name="VC msd.3.7" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.06"/></proof>
-   </goal>
-   <goal name="VC msd.3.8" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="24"/></proof>
-   </goal>
-   <goal name="VC msd.3.9" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.06"/></proof>
-   </goal>
-   <goal name="VC msd.3.10" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.05"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="24"/></proof>
-   </goal>
-   <goal name="VC msd.3.11" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.03"/></proof>
-   </goal>
-  </transf>
-  </goal>
-  <goal name="VC msd.4" expl="precondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.08"/></proof>
-  </goal>
-  <goal name="VC msd.5" expl="precondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.05"/></proof>
-  </goal>
-  <goal name="VC msd.6" expl="precondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.05"/></proof>
-  </goal>
-  <goal name="VC msd.7" expl="precondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.03"/></proof>
-  </goal>
-  <goal name="VC msd.8" expl="assertion" proved="true">
-  <proof prover="1"><result status="valid" time="0.03"/></proof>
-  </goal>
-  <goal name="VC msd.9" expl="assertion" proved="true">
-  <proof prover="1"><result status="valid" time="0.05"/></proof>
-  </goal>
-  <goal name="VC msd.10" expl="postcondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.06"/></proof>
-  </goal>
-  <goal name="VC msd.11" expl="postcondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.06"/></proof>
-  </goal>
-  <goal name="VC msd.12" expl="postcondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.06"/></proof>
-  </goal>
-  <goal name="VC msd.13" expl="variant decrease" proved="true">
-  <proof prover="0"><result status="valid" time="0.02"/></proof>
-  <proof prover="1"><result status="valid" time="0.06"/></proof>
-  <proof prover="2"><result status="valid" time="0.00" steps="22"/></proof>
-  <proof prover="3"><result status="valid" time="0.02"/></proof>
-  <transf name="split_all_full" proved="true" >
-   <goal name="VC msd.13.0" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.05"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="22"/></proof>
-   <proof prover="3"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.13.1" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.06"/></proof>
-   </goal>
-   <goal name="VC msd.13.2" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="2"><result status="valid" time="0.00" steps="22"/></proof>
-   <proof prover="3"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.13.3" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
-   </goal>
-   <goal name="VC msd.13.4" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.06"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="22"/></proof>
-   <proof prover="3"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.13.5" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.06"/></proof>
-   </goal>
-   <goal name="VC msd.13.6" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.05"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="22"/></proof>
-   <proof prover="3"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.13.7" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
-   </goal>
-   <goal name="VC msd.13.8" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.05"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="22"/></proof>
-   <proof prover="3"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.13.9" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
-   </goal>
-   <goal name="VC msd.13.10" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.06"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="22"/></proof>
-   <proof prover="3"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.13.11" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.03"/></proof>
-   </goal>
-  </transf>
-  </goal>
-  <goal name="VC msd.14" expl="precondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.05"/></proof>
-  </goal>
-  <goal name="VC msd.15" expl="precondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.08"/></proof>
-  </goal>
-  <goal name="VC msd.16" expl="variant decrease" proved="true">
-  <proof prover="0"><result status="valid" time="0.02"/></proof>
-  <proof prover="1"><result status="valid" time="0.03"/></proof>
-  <proof prover="2"><result status="valid" time="0.02" steps="24"/></proof>
-  <transf name="split_all_full" proved="true" >
-   <goal name="VC msd.16.0" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="2"><result status="valid" time="0.00" steps="24"/></proof>
-   </goal>
-   <goal name="VC msd.16.1" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.16.2" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="24"/></proof>
-   </goal>
-   <goal name="VC msd.16.3" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.16.4" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.06"/></proof>
-   <proof prover="2"><result status="valid" time="0.00" steps="24"/></proof>
-   </goal>
-   <goal name="VC msd.16.5" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.06"/></proof>
-   </goal>
-   <goal name="VC msd.16.6" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.02"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.05"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="24"/></proof>
-   </goal>
-   <goal name="VC msd.16.7" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.06"/></proof>
-   </goal>
-   <goal name="VC msd.16.8" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.00"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.05"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="24"/></proof>
-   </goal>
-   <goal name="VC msd.16.9" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
-   </goal>
-   <goal name="VC msd.16.10" expl="variant decrease" proved="true">
-   <proof prover="0" timelimit="5" memlimit="2000"><result status="valid" time="0.03"/></proof>
-   <proof prover="1" timelimit="5" memlimit="2000"><result status="valid" time="0.06"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="24"/></proof>
-   </goal>
-   <goal name="VC msd.16.11" expl="variant decrease" proved="true">
-   <proof prover="1"><result status="valid" time="0.06"/></proof>
-   </goal>
-  </transf>
-  </goal>
-  <goal name="VC msd.17" expl="precondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.06"/></proof>
-  </goal>
-  <goal name="VC msd.18" expl="precondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.05"/></proof>
-  </goal>
-  <goal name="VC msd.19" expl="precondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.02"/></proof>
-  </goal>
-  <goal name="VC msd.20" expl="precondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.06"/></proof>
-  </goal>
-  <goal name="VC msd.21" expl="assertion" proved="true">
-  <transf name="split_all_full" proved="true" >
-   <goal name="VC msd.21.0" expl="VC for msd" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
-   </goal>
-   <goal name="VC msd.21.1" expl="VC for msd" proved="true">
-   <proof prover="1"><result status="valid" time="0.08"/></proof>
-   </goal>
-   <goal name="VC msd.21.2" expl="VC for msd" proved="true">
-   <proof prover="1"><result status="valid" time="0.64"/></proof>
-   </goal>
-   <goal name="VC msd.21.3" expl="VC for msd" proved="true">
-   <proof prover="2"><result status="valid" time="0.45" steps="1315"/></proof>
-   </goal>
-   <goal name="VC msd.21.4" expl="VC for msd" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
-   </goal>
-   <goal name="VC msd.21.5" expl="VC for msd" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
-   </goal>
-  </transf>
-  </goal>
-  <goal name="VC msd.22" expl="assertion" proved="true">
-  <transf name="split_all_full" proved="true" >
-   <goal name="VC msd.22.0" expl="VC for msd" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
-   </goal>
-   <goal name="VC msd.22.1" expl="VC for msd" proved="true">
-   <proof prover="1"><result status="valid" time="0.06"/></proof>
-   </goal>
-   <goal name="VC msd.22.2" expl="VC for msd" proved="true">
-   <proof prover="1"><result status="valid" time="0.08"/></proof>
-   </goal>
-   <goal name="VC msd.22.3" expl="VC for msd" proved="true">
-   <proof prover="0"><result status="valid" time="0.03"/></proof>
-   </goal>
-   <goal name="VC msd.22.4" expl="VC for msd" proved="true">
-   <proof prover="1"><result status="valid" time="0.05"/></proof>
-   </goal>
-   <goal name="VC msd.22.5" expl="VC for msd" proved="true">
-   <proof prover="2"><result status="valid" time="0.03" steps="35"/></proof>
-   </goal>
-   <goal name="VC msd.22.6" expl="VC for msd" proved="true">
-   <proof prover="1"><result status="valid" time="0.08"/></proof>
-   </goal>
-  </transf>
-  </goal>
-  <goal name="VC msd.23" expl="postcondition" proved="true">
-  <proof prover="1"><result status="valid" time="0.05"/></proof>
-  </goal>
-  <goal name="VC msd.24" expl="postcondition" proved="true">
+ <goal name="VC msd" expl="VC for msd">
+ <transf name="split_all_full" >
+  <goal name="VC msd.0" expl="assertion" proved="true">
   <proof prover="1"><result status="valid" time="0.09"/></proof>
   </goal>
-  <goal name="VC msd.25" expl="postcondition" proved="true">
+  <goal name="VC msd.1" expl="assertion">
+  </goal>
+  <goal name="VC msd.2" expl="assertion">
+  </goal>
+  <goal name="VC msd.3" expl="assertion">
+  <proof prover="0" obsolete="true"><result status="highfailure" time="0.78"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="highfailure" time="0.03"/></proof>
+  <transf name="split_all_full" >
+   <goal name="VC msd.3.0" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC msd.3.1" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.02"/></proof>
+   </goal>
+   <goal name="VC msd.3.2" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.41"/></proof>
+   </goal>
+   <goal name="VC msd.3.3" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.3.4" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="34"/></proof>
+   </goal>
+   <goal name="VC msd.3.5" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="34"/></proof>
+   </goal>
+   <goal name="VC msd.3.6" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="34"/></proof>
+   </goal>
+   <goal name="VC msd.3.7" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.09"/></proof>
+   </goal>
+   <goal name="VC msd.3.8" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.70"/></proof>
+   </goal>
+   <goal name="VC msd.3.9" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.3.10" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="unknown" time="0.78"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.30" steps="481"/></proof>
+   </goal>
+   <goal name="VC msd.3.11" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.41" steps="519"/></proof>
+   </goal>
+   <goal name="VC msd.3.12" expl="VC for msd">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="highfailure" time="4.23"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2" timelimit="5" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="3" memlimit="2000" obsolete="true"><result status="highfailure" time="0.02"/></proof>
+   <transf name="introduce_premises" >
+    <goal name="VC msd.3.12.0" expl="VC for msd">
+    <transf name="inline_goal" >
+     <goal name="VC msd.3.12.0.0" expl="VC for msd">
+     <proof prover="0" timelimit="30" memlimit="4000" obsolete="true"><result status="highfailure" time="25.23"/></proof>
+     <proof prover="1" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00"/></proof>
+     <proof prover="2" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00"/></proof>
+     <proof prover="3" timelimit="30" memlimit="4000" obsolete="true"><result status="highfailure" time="0.03"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="VC msd.3.13" expl="VC for msd">
+   </goal>
+   <goal name="VC msd.3.14" expl="VC for msd">
+   </goal>
+   <goal name="VC msd.3.15" expl="VC for msd">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="highfailure" time="4.38"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2" timelimit="5" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="3" memlimit="2000" obsolete="true"><result status="highfailure" time="0.05"/></proof>
+   <transf name="introduce_premises" >
+    <goal name="VC msd.3.15.0" expl="VC for msd">
+    <transf name="inline_goal" >
+     <goal name="VC msd.3.15.0.0" expl="VC for msd">
+     <proof prover="0" timelimit="30" memlimit="4000" obsolete="true"><result status="highfailure" time="25.28"/></proof>
+     <proof prover="1" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00"/></proof>
+     <proof prover="2" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00"/></proof>
+     <proof prover="3" timelimit="30" memlimit="4000" obsolete="true"><result status="highfailure" time="0.03"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="VC msd.3.16" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.08"/></proof>
+   </goal>
+   <goal name="VC msd.33.15">
+   </goal>
+   <goal name="VC msd.33.16">
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC msd.4" expl="variant decrease">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+  </goal>
+  <goal name="VC msd.5" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+  </goal>
+  <goal name="VC msd.6" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.08"/></proof>
+  </goal>
+  <goal name="VC msd.7" expl="variant decrease">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.30"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.00" steps="119"/></proof>
+  <transf name="split_all_full" >
+   <goal name="VC msd.7.0" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="28"/></proof>
+   </goal>
+   <goal name="VC msd.7.1" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC msd.7.2" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.06"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="28"/></proof>
+   </goal>
+   <goal name="VC msd.7.3" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+   </goal>
+   <goal name="VC msd.7.4" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="28"/></proof>
+   </goal>
+   <goal name="VC msd.7.5" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC msd.7.6" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.05"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="28"/></proof>
+   </goal>
+   <goal name="VC msd.7.7" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC msd.7.8" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.05"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="28"/></proof>
+   </goal>
+   <goal name="VC msd.7.9" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.7.10" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.05"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="28"/></proof>
+   </goal>
+   <goal name="VC msd.7.11" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.08"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC msd.8" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+  </goal>
+  <goal name="VC msd.9" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+  </goal>
+  <goal name="VC msd.10" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+  </goal>
+  <goal name="VC msd.11" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+  </goal>
+  <goal name="VC msd.12" expl="assertion" proved="true">
+  <proof prover="0"><result status="valid" time="0.03"/></proof>
+  </goal>
+  <goal name="VC msd.13" expl="assertion" proved="true">
+  <transf name="split_all_full" proved="true" >
+   <goal name="VC msd.13.0" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.13.1" expl="VC for msd" proved="true">
+   <proof prover="2"><result status="valid" time="0.08" steps="138"/></proof>
+   </goal>
+   <goal name="VC msd.13.2" expl="VC for msd" proved="true">
+   <proof prover="2"><result status="valid" time="0.06" steps="133"/></proof>
+   </goal>
+   <goal name="VC msd.13.3" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.13.4" expl="VC for msd" proved="true">
+   <proof prover="2" timelimit="5" memlimit="2000"><result status="valid" time="4.16" steps="1870"/></proof>
+   </goal>
+   <goal name="VC msd.13.5" expl="VC for msd" proved="true">
+   <proof prover="2"><result status="valid" time="0.02" steps="32"/></proof>
+   </goal>
+   <goal name="VC msd.13.6" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.06"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC msd.14" expl="assertion">
+  </goal>
+  <goal name="VC msd.15" expl="assertion">
+  <transf name="split_all_full" >
+   <goal name="VC msd.15.0" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC msd.15.1" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC msd.15.2" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.50"/></proof>
+   </goal>
+   <goal name="VC msd.15.3" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.09"/></proof>
+   </goal>
+   <goal name="VC msd.15.4" expl="VC for msd" proved="true">
+   <proof prover="2"><result status="valid" time="0.03" steps="36"/></proof>
+   </goal>
+   <goal name="VC msd.15.5" expl="VC for msd" proved="true">
+   <proof prover="2"><result status="valid" time="0.03" steps="36"/></proof>
+   </goal>
+   <goal name="VC msd.15.6" expl="VC for msd" proved="true">
+   <proof prover="2"><result status="valid" time="0.02" steps="36"/></proof>
+   </goal>
+   <goal name="VC msd.15.7" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.09"/></proof>
+   </goal>
+   <goal name="VC msd.15.8" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.86"/></proof>
+   </goal>
+   <goal name="VC msd.15.9" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.03"/></proof>
+   </goal>
+   <goal name="VC msd.15.10" expl="VC for msd" proved="true">
+   <proof prover="0"><result status="highfailure" time="0.78"/></proof>
+   <proof prover="1"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2"><result status="valid" time="0.41" steps="600"/></proof>
+   </goal>
+   <goal name="VC msd.15.11" expl="VC for msd" proved="true">
+   <proof prover="2"><result status="valid" time="0.39" steps="635"/></proof>
+   </goal>
+   <goal name="VC msd.15.12" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.02"/></proof>
+   </goal>
+   <goal name="VC msd.15.13" expl="VC for msd" proved="true">
+   <proof prover="0"><result status="highfailure" time="0.72"/></proof>
+   <proof prover="1"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2"><result status="valid" time="0.06" steps="48"/></proof>
+   </goal>
+   <goal name="VC msd.15.14" expl="VC for msd" proved="true">
+   <proof prover="0"><result status="valid" time="0.02"/></proof>
+   <proof prover="1"><result status="timeout" time="1.00"/></proof>
+   </goal>
+   <goal name="VC msd.15.15" expl="VC for msd" proved="true">
+   <proof prover="0"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2"><result status="valid" time="0.08" steps="58"/></proof>
+   </goal>
+   <goal name="VC msd.15.16" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.09"/></proof>
+   </goal>
+   <goal name="VC msd.15.15">
+   <proof prover="1"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.15.16">
+   <proof prover="0" timelimit="5" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000"><result status="unknown" time="4.38"/></proof>
+   <proof prover="2" timelimit="5" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+   <proof prover="3" memlimit="2000"><result status="highfailure" time="0.02"/></proof>
+   <transf name="introduce_premises" >
+    <goal name="VC msd.15.16.0">
+    <transf name="inline_goal" >
+     <goal name="VC msd.15.16.0.0">
+     <proof prover="0" timelimit="30" memlimit="4000"><result status="highfailure" time="25.17"/></proof>
+     <proof prover="1" timelimit="30" memlimit="4000"><result status="timeout" time="30.00"/></proof>
+     <proof prover="2" timelimit="30" memlimit="4000"><result status="timeout" time="30.00"/></proof>
+     <proof prover="3" timelimit="30" memlimit="4000"><result status="highfailure" time="0.00"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC msd.16" expl="variant decrease">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.27"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="156"/></proof>
+  <transf name="split_all_full" >
+   <goal name="VC msd.16.0" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="26"/></proof>
+   </goal>
+   <goal name="VC msd.16.1" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.02"/></proof>
+   </goal>
+   <goal name="VC msd.16.2" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.05"/></proof>
+   <proof prover="2" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02" steps="26"/></proof>
+   </goal>
+   <goal name="VC msd.16.3" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+   </goal>
+   <goal name="VC msd.16.4" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="2" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.00" steps="26"/></proof>
+   </goal>
+   <goal name="VC msd.16.5" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.16.6" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.05"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.00" steps="26"/></proof>
+   </goal>
+   <goal name="VC msd.16.7" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.16.8" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="26"/></proof>
+   </goal>
+   <goal name="VC msd.16.9" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.16.10" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.06"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="26"/></proof>
+   </goal>
+   <goal name="VC msd.16.11" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC msd.17" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.02"/></proof>
+  </goal>
+  <goal name="VC msd.18" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.08"/></proof>
+  </goal>
+  <goal name="VC msd.19" expl="variant decrease">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.08"/></proof>
+  </goal>
+  <goal name="VC msd.20" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+  </goal>
+  <goal name="VC msd.21" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+  </goal>
+  <goal name="VC msd.22" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.02"/></proof>
+  </goal>
+  <goal name="VC msd.23" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+  </goal>
+  <goal name="VC msd.24" expl="assertion" proved="true">
+  <proof prover="1"><result status="valid" time="0.03"/></proof>
+  </goal>
+  <goal name="VC msd.25" expl="assertion" proved="true">
+  <proof prover="1"><result status="valid" time="0.05"/></proof>
+  </goal>
+  <goal name="VC msd.26" expl="postcondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+  </goal>
+  <goal name="VC msd.27" expl="postcondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+  </goal>
+  <goal name="VC msd.28" expl="postcondition" proved="true">
+  <proof prover="1"><result status="valid" time="0.06"/></proof>
+  </goal>
+  <goal name="VC msd.29" expl="postcondition" proved="true">
+  <proof prover="1"><result status="valid" time="0.06"/></proof>
+  </goal>
+  <goal name="VC msd.30" expl="assertion">
+  </goal>
+  <goal name="VC msd.31" expl="assertion">
+  <proof prover="0" obsolete="true"><result status="highfailure" time="0.72"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="highfailure" time="0.02"/></proof>
+  <transf name="split_all_full" >
+   <goal name="VC msd.31.0" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.02"/></proof>
+   </goal>
+   <goal name="VC msd.31.1" expl="VC for msd">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="highfailure" time="4.17"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="unknown" time="4.31"/></proof>
+   <proof prover="2" timelimit="5" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="3" memlimit="2000" obsolete="true"><result status="highfailure" time="0.05"/></proof>
+   <transf name="introduce_premises" >
+    <goal name="VC msd.31.1.0" expl="VC for msd">
+    <transf name="inline_goal" >
+     <goal name="VC msd.31.1.0.0" expl="VC for msd">
+     <proof prover="1" timelimit="30" memlimit="4000" obsolete="true"><undone/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="VC msd.31.2" expl="VC for msd">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="highfailure" time="4.17"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="unknown" time="4.27"/></proof>
+   <proof prover="2" timelimit="5" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="3" memlimit="2000" obsolete="true"><result status="highfailure" time="0.03"/></proof>
+   <transf name="introduce_premises" >
+    <goal name="VC msd.31.2.0" expl="VC for msd">
+    <transf name="inline_goal" >
+     <goal name="VC msd.31.2.0.0" expl="VC for msd">
+     <proof prover="1" timelimit="30" memlimit="4000" obsolete="true"><undone/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="VC msd.31.3" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+   </goal>
+   <goal name="VC msd.31.4" expl="VC for msd">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="highfailure" time="4.02"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="3.97" steps="715"/></proof>
+   <proof prover="3" timelimit="1" obsolete="true"><result status="highfailure" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.31.5" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="32"/></proof>
+   </goal>
+   <goal name="VC msd.31.6" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC msd.32" expl="assertion">
+  <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="167"/></proof>
+  </goal>
+  <goal name="VC msd.33" expl="assertion">
+  <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="highfailure" time="0.02"/></proof>
+  <transf name="split_all_full" >
+   <goal name="VC msd.33.0" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.02"/></proof>
+   </goal>
+   <goal name="VC msd.33.1" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.00"/></proof>
+   </goal>
+   <goal name="VC msd.33.2" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.38"/></proof>
+   </goal>
+   <goal name="VC msd.33.3" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC msd.33.4" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="34"/></proof>
+   </goal>
+   <goal name="VC msd.33.5" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="34"/></proof>
+   </goal>
+   <goal name="VC msd.33.6" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="34"/></proof>
+   </goal>
+   <goal name="VC msd.33.7" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.08"/></proof>
+   </goal>
+   <goal name="VC msd.33.8" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.70"/></proof>
+   </goal>
+   <goal name="VC msd.33.9" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+   </goal>
+   <goal name="VC msd.33.10" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.31" steps="481"/></proof>
+   </goal>
+   <goal name="VC msd.33.11" expl="VC for msd">
+   </goal>
+   <goal name="VC msd.33.12" expl="VC for msd">
+   </goal>
+   <goal name="VC msd.33.13" expl="VC for msd">
+   </goal>
+   <goal name="VC msd.33.14" expl="VC for msd">
+   </goal>
+   <goal name="VC msd.33.15" expl="VC for msd">
+   </goal>
+   <goal name="VC msd.33.16" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.08"/></proof>
+   </goal>
+   <goal name="VC msd.3.15">
+   </goal>
+   <goal name="VC msd.3.16">
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC msd.34" expl="variant decrease">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+  </goal>
+  <goal name="VC msd.35" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+  </goal>
+  <goal name="VC msd.36" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.09"/></proof>
+  </goal>
+  <goal name="VC msd.37" expl="variant decrease">
+  <transf name="split_all_full" >
+   <goal name="VC msd.37.0" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.05"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="28"/></proof>
+   </goal>
+   <goal name="VC msd.37.1" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC msd.37.2" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.00" steps="28"/></proof>
+   </goal>
+   <goal name="VC msd.37.3" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC msd.37.4" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.00"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.05"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="28"/></proof>
+   </goal>
+   <goal name="VC msd.37.5" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.37.6" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.06"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.00" steps="28"/></proof>
+   </goal>
+   <goal name="VC msd.37.7" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+   </goal>
+   <goal name="VC msd.37.8" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.06"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="28"/></proof>
+   </goal>
+   <goal name="VC msd.37.9" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC msd.37.10" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="28"/></proof>
+   </goal>
+   <goal name="VC msd.37.11" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC msd.38" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+  </goal>
+  <goal name="VC msd.39" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+  </goal>
+  <goal name="VC msd.40" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.02"/></proof>
+  </goal>
+  <goal name="VC msd.41" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+  </goal>
+  <goal name="VC msd.42" expl="assertion">
+  </goal>
+  <goal name="VC msd.43" expl="assertion">
+  </goal>
+  <goal name="VC msd.44" expl="assertion">
+  <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="125"/></proof>
+  </goal>
+  <goal name="VC msd.45" expl="assertion">
+  <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="highfailure" time="0.03"/></proof>
+  <transf name="split_all_full" >
+   <goal name="VC msd.45.0" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.08"/></proof>
+   </goal>
+   <goal name="VC msd.45.1" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.08"/></proof>
+   </goal>
+   <goal name="VC msd.45.2" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.30"/></proof>
+   </goal>
+   <goal name="VC msd.45.3" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC msd.45.4" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="36"/></proof>
+   </goal>
+   <goal name="VC msd.45.5" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="36"/></proof>
+   </goal>
+   <goal name="VC msd.45.6" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="highfailure" time="0.78"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="36"/></proof>
+   </goal>
+   <goal name="VC msd.45.7" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.09"/></proof>
+   </goal>
+   <goal name="VC msd.45.8" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   </goal>
+   <goal name="VC msd.45.9" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.45.10" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.48" steps="600"/></proof>
+   </goal>
+   <goal name="VC msd.45.11" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.50" steps="635"/></proof>
+   </goal>
+   <goal name="VC msd.45.12" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.22"/></proof>
+   </goal>
+   <goal name="VC msd.45.13" expl="VC for msd">
+   </goal>
+   <goal name="VC msd.45.14" expl="VC for msd">
+   </goal>
+   <goal name="VC msd.45.15" expl="VC for msd">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.52" steps="264"/></proof>
+   </goal>
+   <goal name="VC msd.45.16" expl="VC for msd">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.11"/></proof>
+   </goal>
+   <goal name="VC msd.45.15">
+   </goal>
+   <goal name="VC msd.45.16">
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC msd.46" expl="variant decrease">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.02"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.00" steps="111"/></proof>
+  <transf name="split_all_full" >
+   <goal name="VC msd.46.0" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.05"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="26"/></proof>
+   </goal>
+   <goal name="VC msd.46.1" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.46.2" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.05"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="26"/></proof>
+   </goal>
+   <goal name="VC msd.46.3" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.46.4" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.00" steps="26"/></proof>
+   </goal>
+   <goal name="VC msd.46.5" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+   </goal>
+   <goal name="VC msd.46.6" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.03"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.06"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="26"/></proof>
+   </goal>
+   <goal name="VC msd.46.7" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.46.8" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.05"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="26"/></proof>
+   </goal>
+   <goal name="VC msd.46.9" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC msd.46.10" expl="variant decrease">
+   <proof prover="0" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.02"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000" obsolete="true"><result status="valid" time="0.06"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="26"/></proof>
+   </goal>
+   <goal name="VC msd.46.11" expl="variant decrease">
+   <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC msd.47" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+  </goal>
+  <goal name="VC msd.48" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.08"/></proof>
+  </goal>
+  <goal name="VC msd.49" expl="variant decrease">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.09"/></proof>
+  </goal>
+  <goal name="VC msd.50" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+  </goal>
+  <goal name="VC msd.51" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+  </goal>
+  <goal name="VC msd.52" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+  </goal>
+  <goal name="VC msd.53" expl="precondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+  </goal>
+  <goal name="VC msd.54" expl="assertion" proved="true">
+  <transf name="split_all_full" proved="true" >
+   <goal name="VC msd.54.0" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.54.1" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.08"/></proof>
+   </goal>
+   <goal name="VC msd.54.2" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.64"/></proof>
+   </goal>
+   <goal name="VC msd.54.3" expl="VC for msd" proved="true">
+   <proof prover="2"><result status="valid" time="0.45" steps="1136"/></proof>
+   </goal>
+   <goal name="VC msd.54.4" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.54.5" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.05"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC msd.55" expl="assertion" proved="true">
+  <transf name="split_all_full" proved="true" >
+   <goal name="VC msd.55.0" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.55.1" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.06"/></proof>
+   </goal>
+   <goal name="VC msd.55.2" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.08"/></proof>
+   </goal>
+   <goal name="VC msd.55.3" expl="VC for msd" proved="true">
+   <proof prover="0"><result status="valid" time="0.03"/></proof>
+   </goal>
+   <goal name="VC msd.55.4" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.05"/></proof>
+   </goal>
+   <goal name="VC msd.55.5" expl="VC for msd" proved="true">
+   <proof prover="2"><result status="valid" time="0.03" steps="33"/></proof>
+   </goal>
+   <goal name="VC msd.55.6" expl="VC for msd" proved="true">
+   <proof prover="1"><result status="valid" time="0.08"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="VC msd.56" expl="postcondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
+  </goal>
+  <goal name="VC msd.57" expl="postcondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.08"/></proof>
+  </goal>
+  <goal name="VC msd.58" expl="postcondition" proved="true">
+  <proof prover="1"><result status="valid" time="0.09"/></proof>
+  </goal>
+  <goal name="VC msd.59" expl="postcondition" proved="true">
   <proof prover="1"><result status="valid" time="0.08"/></proof>
   </goal>
  </transf>

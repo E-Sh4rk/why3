@@ -615,7 +615,25 @@ with msd (t:term') (n:int) (c:int) : (int, bool)
   variant { t, msd_variant t n }
   =
   if c = 0 || c = 1 || c = -1 then begin
-    assume { msd_variant t n > 0 } ;
+    let ghost a = - (floor (log2 (abs (interp' t)))) in
+    let ghost ub1 = abs ((from_int c +. 1.) *. _B (-n)) in
+    let ghost ub2 = abs ((from_int c -. 1.) *. _B (-n)) in
+    let ghost ub = if ub1 >. ub2 then ub1 else ub2 in
+    assert { ub <. 2. *. _B (-n) } ;
+    assert { log2 (_B (-n)) = 2. *. from_int (-n)
+          by log2 4. = log2 (2. *. 2.) = log2 2. +. log2 2. = 1. +. 1. = 2. so log2 (_B (-n)) = from_int (-n) *. log2 (4.) = 2. *. from_int (-n) } ;
+    assert { 0. <. abs (interp' t) <. ub
+          by (from_int c -. 1.) *. _B (-n) <. interp' t <. (from_int c +. 1.) *. _B (-n)
+          so abs (interp' t) <. abs ((from_int c -. 1.) *. _B (-n)) \/ abs (interp' t) <. abs ((from_int c +. 1.) *. _B (-n)) } ;
+    assert { msd_variant t n > 0
+          by 0. <. abs (interp' t) <. ub so log (abs (interp' t)) <. log ub
+          so log2 (abs (interp' t)) = log (abs (interp' t)) /. log 2. = log (abs (interp' t)) *. inv (log 2.)
+             <. log ub *. inv (log 2.) = log ub /. log 2. = log2 ub
+          so floor (log2 (abs (interp' t))) < ceil (log2 ub)
+          so a > - (ceil (log2 ub)) >= - (ceil (log2 (2. *. _B (-n)))) >= - (ceil (log2 (2.) +. log2 (_B (-n))))
+             >= - (ceil (log2 (2.) +. 2. *. from_int (-n))) >= - (ceil (1. +. 2. *. from_int (-n)))
+             >= - (1 + 2 * (-n)) >= 2*n - 1
+          so a > n } ;
     let c = compute' t (n+1) in
     msd t (n+1) c
   end else begin
