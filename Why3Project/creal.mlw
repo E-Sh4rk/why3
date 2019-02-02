@@ -434,11 +434,20 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
            = from_int pow4nk *. inv (from_int (p+1)) <. inv x *. (_B n)
         so (from_int dp) *. (_B (-n)) <. inv x *. _B n *. (_B (-n)) } ;
         
-  assert { inv x *. (_B n) <. from_int pow4nk *. inv (from_int (p-1))
+  assert { inv x *. (_B n) <. from_int dm +. 1.
         by p > 1 so p - 1 > 0 so 0. <. (from_int (p-1)) *. (_B (-(n+1))) <. x
         so inv x <. inv ((from_int (p-1)) *. (_B (-(n+1)))) = inv (from_int (p-1)) *. inv (_B (-(n+1)))
            = inv (from_int (p-1)) *. _B (n+1) = inv (from_int (p-1)) *. _B k
-        so inv x *. _B n <. inv (from_int (p-1)) *. _B k *. _B n = inv (from_int (p-1)) *. (from_int pow4nk) } ;
+        so inv x *. _B n <. inv (from_int (p-1)) *. _B k *. _B n = inv (from_int (p-1)) *. (from_int pow4nk)
+        so pow4nk = (p-1)*dm+rm /\ (from_int (p-1) *. inv (from_int (p-1))) = 1.
+        /\ forall a,b,c:real. (a+.b)*.c = a*.c +. b*.c
+        so inv x *. (_B n) <. from_int pow4nk *. inv (from_int (p-1)) = from_int ((p-1)*dm+rm) *. inv (from_int (p-1))
+           = from_int ((p-1)*dm) *. inv (from_int (p-1)) +. from_int rm *. inv (from_int (p-1))
+           = from_int dm *. (from_int (p-1) *. inv (from_int (p-1))) +. (from_int rm *. inv (from_int (p-1)))
+           = from_int dm *. 1. +. (from_int rm *. inv (from_int (p-1))) = from_int dm +. from_int rm *. inv (from_int (p-1))
+           /\ rm <= p-1
+        so from_int rm *. inv (from_int (p-1)) <=. (from_int (p-1)) *. inv (from_int (p-1)) = 1. /\ from_int dm <=. from_int d +. 1.
+        so from_int dm +. from_int rm *. inv (from_int (p-1)) <=. from_int dm +. 1. } ;
   
   if 2*r <= p
   then
@@ -472,15 +481,7 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
           so (from_int d -. 1.) *. (_B (-n)) <=. (from_int dp) *. (_B (-n)) <. inv x } ;
           
     assert { inv x <. (from_int d +. 1.) *. (_B (-n))
-          by pow4nk = (p-1)*dm+rm /\ (from_int (p-1) *. inv (from_int (p-1))) = 1.
-          so inv x *. (_B n) <. from_int pow4nk *. inv (from_int (p-1)) = from_int ((p-1)*dm+rm) *. inv (from_int (p-1))
-             = from_int ((p-1)*dm) *. inv (from_int (p-1)) +. from_int rm *. inv (from_int (p-1))
-             = from_int dm *. (from_int (p-1) *. inv (from_int (p-1))) +. (from_int rm *. inv (from_int (p-1)))
-             = from_int dm *. 1. +. (from_int rm *. inv (from_int (p-1))) = from_int dm +. from_int rm *. inv (from_int (p-1))
-             /\ rm <= p-1
-          so from_int rm *. inv (from_int (p-1)) <=. (from_int (p-1)) *. inv (from_int (p-1)) = 1. /\ from_int dm <=. from_int d +. 1.
-          so from_int dm +. from_int rm *. inv (from_int (p-1)) <=. from_int dm +. 1. <=. (from_int d) +. 1.
-          so inv x *. (_B n) <. from_int dm +. from_int rm *. inv (from_int (p-1)) <=. from_int d +. 1.
+          by inv x *. (_B n) <. from_int dm +. 1. <=. (from_int d) +. 1.
           so inv x *. (_B n) <. from_int d +. 1. /\ inv (_B n) >. 0.
           so (inv x *. (_B n)) *. inv (_B n) <=. (from_int d +. 1.) *. inv (_B n) /\ (inv x *. (_B n)) *. inv (_B n) <> (from_int d +. 1.) *. inv (_B n)
           so (_B n) *. inv (_B n) = 1. so inv x *. ((_B n) *. inv (_B n)) = inv x *. 1. = inv x
@@ -489,20 +490,12 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
   )
   else
   (
-    assert { d = dp by 2*r >= p +1 > p-1 >= 2*d so r > d } ;
+    assert { d = dp by 2*r >= p +1 > p-1 >= 2*d so r >= d /\ d <= p /\ 0 < p /\ 0 < pow4nk } ;
     assert { (from_int d) *. (_B (-n)) <. inv x } ;
           
     assert { dm <= d+1 by ED.div pow4nk (p-1) <= (ED.div pow4nk p) + 1 } ;
     assert { inv x <. (from_int d +. 2.) *. (_B (-n))
-          by pow4nk = (p-1)*dm+rm /\ (from_int (p-1) *. inv (from_int (p-1))) = 1.
-          so inv x *. (_B n) <. from_int pow4nk *. inv (from_int (p-1)) = from_int ((p-1)*dm+rm) *. inv (from_int (p-1))
-             = from_int ((p-1)*dm) *. inv (from_int (p-1)) +. from_int rm *. inv (from_int (p-1))
-             = from_int dm *. (from_int (p-1) *. inv (from_int (p-1))) +. (from_int rm *. inv (from_int (p-1)))
-             = from_int dm *. 1. +. (from_int rm *. inv (from_int (p-1))) = from_int dm +. from_int rm *. inv (from_int (p-1))
-             /\ rm <= p-1
-          so from_int rm *. inv (from_int (p-1)) <=. (from_int (p-1)) *. inv (from_int (p-1)) = 1. /\ from_int dm <=. from_int d +. 1.
-          so from_int dm +. from_int rm *. inv (from_int (p-1)) <=. from_int dm +. 1. <=. (from_int d +. 1.) +. 1. <=. from_int d +. 2.
-          so inv x *. (_B n) <. from_int dm +. from_int rm *. inv (from_int (p-1)) <=. from_int d +. 2.
+          by inv x *. (_B n) <. from_int dm +. 1. <=. (from_int d +. 1.) +. 1. <=. from_int d +. 2.
           so inv x *. (_B n) <. from_int d +. 2. /\ inv (_B n) >. 0.
           so (inv x *. (_B n)) *. inv (_B n) <=. (from_int d +. 2.) *. inv (_B n) /\ (inv x *. (_B n)) *. inv (_B n) <> (from_int d +. 2.) *. inv (_B n)
           so (_B n) *. inv (_B n) = 1. so inv x *. ((_B n) *. inv (_B n)) = inv x *. 1. = inv x
