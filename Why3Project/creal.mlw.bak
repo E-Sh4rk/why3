@@ -421,21 +421,24 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
   assert { from_int pow4nk = from_int (power 2 (2*(n+k))) = _B k *. _B n } ;
   assert { inv (_B (-k)) = _B k by _B (-k) *. _B k = 1. so _B (-k) = 1. /. _B k } ;
   
-  assert { from_int pow4nk *. inv (from_int (p+1)) <. inv x *. (_B n)
+  let ghost dm = ED.div pow4nk (p-1) in
+  let ghost rm = ED.mod pow4nk (p-1) in
+  let ghost dp = ED.div pow4nk (p+1) in
+  
+  assert { (from_int dp) *. (_B (-n)) <. inv x
         by x <. (from_int (p+1)) *. (_B (-(n+1)))
         so inv (from_int (p+1)) *. _B k = inv (from_int (p+1)) *. _B (n+1)
            = inv (from_int (p+1)) *. inv (_B (-(n+1))) = inv ((from_int (p+1)) *. (_B (-(n+1)))) <. inv x
-        so inv (from_int (p+1)) *. (from_int pow4nk) = inv (from_int (p+1)) *. _B k *. _B n <. inv x *. _B n } ;
+        so inv (from_int (p+1)) *. (from_int pow4nk) = inv (from_int (p+1)) *. _B k *. _B n <. inv x *. _B n
+        so from_int dp = from_int (ED.div pow4nk (p+1)) <=. from_int pow4nk /. (from_int (p+1))
+           = from_int pow4nk *. inv (from_int (p+1)) <. inv x *. (_B n)
+        so (from_int dp) *. (_B (-n)) <. inv x *. _B n *. (_B (-n)) } ;
         
   assert { inv x *. (_B n) <. from_int pow4nk *. inv (from_int (p-1))
         by p > 1 so p - 1 > 0 so 0. <. (from_int (p-1)) *. (_B (-(n+1))) <. x
         so inv x <. inv ((from_int (p-1)) *. (_B (-(n+1)))) = inv (from_int (p-1)) *. inv (_B (-(n+1)))
            = inv (from_int (p-1)) *. _B (n+1) = inv (from_int (p-1)) *. _B k
         so inv x *. _B n <. inv (from_int (p-1)) *. _B k *. _B n = inv (from_int (p-1)) *. (from_int pow4nk) } ;
-  
-  let ghost dm = ED.div pow4nk (p-1) in
-  let ghost rm = ED.mod pow4nk (p-1) in
-  let ghost dp = ED.div pow4nk (p+1) in
   
   if 2*r <= p
   then
@@ -463,12 +466,10 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
              <=. from_int (p*p) /. (from_int p) = from_int p
           so r + d + 1 < p } ; 
           
-    assert { d - 1 <= dp by ED.div pow4nk p - 1 <= (ED.div pow4nk (p+1)) } ;
     assert { (from_int d -. 1.) *. (_B (-n)) <. inv x
-          by d - 1 <= dp so from_int (d - 1) <=. from_int dp = from_int (ED.div pow4nk (p+1)) <=. from_int pow4nk /. (from_int (p+1))
-             = from_int pow4nk *. inv (from_int (p+1)) <. inv x *. (_B n)
-          so from_int d -. 1. <. inv x *. _B n /\ (_B (-n)) >=. 0.
-          so (from_int d -. 1.) *. (_B (-n)) <. inv x *. _B n *. (_B (-n)) } ;
+          by ED.div pow4nk p - 1 <= (ED.div pow4nk (p+1)) so d - 1 <= dp
+          so from_int d -. 1. <=. from_int dp /\ (from_int dp) *. (_B (-n)) <. inv x
+          so (from_int d -. 1.) *. (_B (-n)) <=. (from_int dp) *. (_B (-n)) <. inv x } ;
           
     assert { inv x <. (from_int d +. 1.) *. (_B (-n))
           by pow4nk = (p-1)*dm+rm /\ (from_int (p-1) *. inv (from_int (p-1))) = 1.
@@ -488,12 +489,8 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
   )
   else
   (
-    assert { d = dp by 2*r >= p +1 > p-1 >= 2*d so r > d } ;
-    assert { (from_int d) *. (_B (-n)) <. inv x
-          by from_int d = from_int dp = from_int (ED.div pow4nk (p+1)) <=. from_int pow4nk /. (from_int (p+1))
-             = from_int pow4nk *. inv (from_int (p+1)) <. inv x *. (_B n)
-          so from_int d <. inv x *. _B n /\ (_B (-n)) >=. 0.
-          so (from_int d) *. (_B (-n)) <. inv x *. _B n *. (_B (-n)) } ;
+    assert { d = dp by 2*r >= p +1 > p-1 >= 2*d so r > d }
+    assert { (from_int d) *. (_B (-n)) <. inv x } ;
           
     assert { dm <= d+1 by ED.div pow4nk (p-1) <= (ED.div pow4nk p) + 1 } ;
     assert { inv x <. (from_int d +. 2.) *. (_B (-n))
@@ -633,7 +630,7 @@ with msd (t:term') (n:int) (c:int) : (int, bool)
           so a > - (ceil (log2 ub)) >= - (ceil (log2 (2. *. _B (-n)))) >= - (ceil (log2 (2.) +. log2 (_B (-n))))
              >= - (ceil (log2 (2.) +. 2. *. from_int (-n))) >= - (ceil (1. +. 2. *. from_int (-n)))
              >= - (1 + 2 * (-n)) >= 2*n - 1
-          so a > n } ;
+          so a + 1 > n } ;
     let c = compute' t (n+1) in
     msd t (n+1) c
   end else begin
