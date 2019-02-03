@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{let} \PYG{n}{d}\PYG{o}{,\PYGZus{}} \PYG{o}{=} \PYG{n}{ediv\PYGZus{}mod} \PYG{n}{z} \PYG{o}{(}\PYG{n}{power2} \PYG{n}{l}\PYG{o}{)} \PYG{k}{in} \PYG{n}{d}
+\end{Verbatim}

@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{x} \PYG{o}{=} \PYG{o}{!}\PYG{n}{q} \PYG{o}{*} \PYG{n}{y} \PYG{o}{+} \PYG{o}{!}\PYG{n}{r} \PYG{o}{/}\PYG{err}{\PYGZbs{}} \PYG{o}{!}\PYG{n}{r} \PYG{o}{\PYGZlt{}} \PYG{n}{y}
+\end{Verbatim}
