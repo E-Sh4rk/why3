@@ -1,5 +1,4 @@
 use int.Int
-use mach.int.Int
 use real.RealInfix
 use real.ExpLog
 use int.Power
@@ -48,15 +47,19 @@ let ediv_mod (x:int) (y:int) : (int, int)
   let r = ref x in
   if 0 <= x then (
      while !r >= y do
-        invariant { x = !q * y + !r /\ 0 <= !r }
+        invariant { x = !q * y + !r /\ !r >= 0 }
         variant { !r }
-        r := !r - y; q := !q + 1
+        assert { !r >= y } ;
+        r := !r - y; q := !q + 1 ;
+        assert { !r >= 0 } ;
      done
    ) else (
     while !r < 0 do
-        invariant { x = !q * y + !r /\ !r < 0 }
+        invariant { x = !q * y + !r /\ !r < y }
         variant { -(!r) }
-        r := !r + y; q := !q - 1
+        assert { !r < 0 } ;
+        r := !r + y; q := !q - 1 ;
+        assert { !r < y } ;
      done
    ) ;
    (!q, !r)
@@ -86,6 +89,7 @@ let function isqrt (n:int) : int
       sum := !sum + 2 * !count + 1
     done ;
     assert { !count >= 0 /\ !count * !count <= n < (!count + 1)*(!count + 1) } ;
+    assert { sqrt (from_int (!count * !count)) <=. sqrt (from_int n) <. sqrt (from_int (!count + 1)*(!count + 1)) } ;
     assert { from_int !count <=. sqrt (from_int n) <. from_int (!count + 1) } ;
     !count
     
@@ -490,7 +494,7 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
   )
   else
   (
-    assert { d = dp by 2*r >= p +1 > p-1 >= 2*d so r >= d /\ d <= p /\ 0 < p /\ 0 < pow4nk so ED.mod pow4nk p >= ED.div pow4nk p so ED.div pow4nk (p+1) = (ED.div pow4nk p) } ;
+    assert { d = dp by 2*r >= p +1 > p-1 >= 2*d so r >= d /\ d <= p /\ 0 < p /\ 0 < pow4nk } ;
     assert { (from_int d) *. (_B (-n)) <. inv x } ;
           
     assert { dm <= d+1 by ED.div pow4nk (p-1) <= (ED.div pow4nk p) + 1 } ;
