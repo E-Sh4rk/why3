@@ -34,8 +34,8 @@
 
 	\section{Implémentation et preuves}
 
-	\paragraph{0. Axiomes}
-	Je n'ai eu besoin que de l'axiome proposé dans le sujet:
+	\paragraph{0. axioms}
+	Je n'ai eu besoin que de l'axiome supplémentaire proposé dans le sujet:
 	\[\forall xy, 0 < x < y \implies log(x) < log(y)\]
 
 	\paragraph{1. power2}
@@ -98,6 +98,9 @@ lemma _B_12 : forall y. 0 <= y -> power 2 (2 * y) = power 4 y
 	est divisée en deux inégalités plus simples que l'on peut prouver séparemment.
 	Ces deux inégalités auraient de toute façon dû être prouvées avant de pouvoir prouver $|x - p(B^{-n})| < B^{-n}$
 	car une disjonction de cas est requise par la valeur absolue.
+
+	\paragraph{14. addition} La fonction compliquée ici est \mintinline{ocaml}{compute_round}.
+	
 
 	\section{Conclusion}
 		

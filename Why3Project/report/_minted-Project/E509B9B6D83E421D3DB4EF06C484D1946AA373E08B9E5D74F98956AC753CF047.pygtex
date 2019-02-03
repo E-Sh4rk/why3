@@ -1,3 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n}{result} \PYG{o}{=} \PYG{n}{z} \PYG{o}{*} \PYG{o}{(}\PYG{n}{power} \PYG{l+m+mi}{2} \PYG{n}{l}\PYG{o}{)}
-\end{Verbatim}

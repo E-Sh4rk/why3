@@ -32,7 +32,6 @@
   </goal>
   <goal name="VC ediv_mod.5" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.89"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
   </goal>
   <goal name="VC ediv_mod.6" expl="loop invariant init" proved="true">
   <proof prover="1"><result status="valid" time="0.02"/></proof>
@@ -1430,7 +1429,6 @@
   <proof prover="2"><result status="valid" time="0.03" steps="150"/></proof>
   </goal>
   <goal name="VC msd.3" expl="assertion" proved="true">
-  <proof prover="2" obsolete="true"><result status="timeout" time="1.00"/></proof>
   <transf name="split_all_full" proved="true" >
    <goal name="VC msd.3.0" expl="VC for msd" proved="true">
    <proof prover="1"><result status="valid" time="0.06"/></proof>
