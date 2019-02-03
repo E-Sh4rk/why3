@@ -99,8 +99,34 @@ lemma _B_12 : forall y. 0 <= y -> power 2 (2 * y) = power 4 y
 	Ces deux inégalités auraient de toute façon dû être prouvées avant de pouvoir prouver $|x - p(B^{-n})| < B^{-n}$
 	car une disjonction de cas est requise par la valeur absolue.
 
-	\paragraph{14. addition} La fonction compliquée ici est \mintinline{ocaml}{compute_round}.
-	
+	\paragraph{14. addition} La preuve compliquée ici est \mintinline{ocaml}{compute_round}.
+	Il faut montrer \mintinline{ocaml}{framing z result n}. J'ai choisi de montrer les deux inégalités
+	correspondantes séparemment (les preuves sont similaires, mais je trouvais cela trop chargé de tout faire
+	en une seule fois). Pour chaque inégalité, on part de l'encadrement de \mintinline{ocaml}{round_z_over_4 zp}
+	(assuré par la spécification de denière fonction), on multiple par $B^{-n}$ des deux cotés et on simplifie
+	jusqu'à obtenir l'encadrement voulu:
+	\begin{minted}{ocaml}
+assert { (from_int res) <=. ((from_int zp +. 2.) *. _B (-1)) } ;
+assert { (from_int res) *. (_B (-n)) <=. ((from_int zp +. 2.) *. _B (-1)) *. (_B (-n)) } ;
+...
+assert { (from_int res) *. (_B (-n)) <=. lb +. (_B (-n)) } ;
+assert { (from_int res -. 1.) *. (_B (-n)) <=. lb } ;
+	\end{minted}
+
+	\paragraph{15. compute\_neg} Aucune difficulté ici, on obtient un encadrement valide de $-x$ simplement
+	en prenant la négation d'un l'encadrement de $x$ de même précision.
+
+	\paragraph{16. compute\_sub} Aucune difficulté non plus, la soustraction de $x$ par $y$
+	étant équivalente à l'addition de $x$ et de l'opposé de $y$. Il faut simplement faire attention à
+	demander un encadrement de $x$ et $y$ de précision $n+1$, car l'addition fait perdre un niveau de précision.
+
+	\paragraph{16,5. compute\_cst} Il n'y a pas vraiment de question pour cette fonction dans l'énoncé,
+	mais la preuve de la fonction fournie n'est pas immédiate pour autant.
+	Le cas $n=0$ ne pose aucune difficulté, mais les cas $n<0$ et $n>0$ nécessitent quelques étapes intermédiaires.
+	J'ai encore une fois prouvé chaque inégalité de l'encadrement séparemment. Il n'y a pas de difficulté mathématique
+	pour ces inégalités, chacune se simplifie immédiatement en une inégalité triviale.
+
+	\paragraph{17. boundaries for sqrt}
 
 	\section{Conclusion}
 		

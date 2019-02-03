@@ -129,9 +129,7 @@ predicate framing (x:real) (p:int) (n:int) =
 
 (* 1. Addition *)
 let round_z_over_4 (z : int)
-  ensures { ((from_int z) -. 2.) *. (_B (-1)) <. from_int result <=. ((from_int z) +. 2.) *. (_B (-1))
-         by (from_int z) -. 2. <. (from_int result) *. (_B 1)
-         /\ (from_int result) *. (_B 1) <=. (from_int z) +. 2. }
+  ensures { ((from_int z) -. 2.) *. (_B (-1)) <. from_int result <=. ((from_int z) +. 2.) *. (_B (-1)) }
   =
   assert { (from_int (ED.div (z+2) 4)) *. (_B 1) <=. (from_int z) +. 2. } ;
   assert { (from_int z) -. 2. <. (from_int (ED.div (z+2) 4)) *. (_B 1) } ;
@@ -195,6 +193,7 @@ let compute_cst (n: int) (x : int) : int
   if n = 0 then
     x
   else if n < 0 then (
+  
     assert { (from_int (ED.div x (power 2 (2*(-n)))) -. 1. ) *. (_B (-n)) <. from_int x 
           by (ED.div x (power 4 (-n)) - 1) * (power 4 (-n)) < x
           so from_int ((ED.div x (power 4 (-n)) - 1) * (power 4 (-n))) <. from_int x
@@ -215,7 +214,6 @@ let compute_cst (n: int) (x : int) : int
   
     assert { (from_int (x * (power 2 (2*n))) -. 1. ) *. (_B (-n)) <. from_int x 
           by let y = (power 4 n) in (from_int (x * y)) *. (inv (from_int y)) = from_int x
-          so let y = (power 4 n) in (from_int (x * y)) *. (inv (from_int y)) -. (inv (from_int y)) <. from_int x
           so let y = (power 4 n) in (from_int (x * y)) *. (inv (from_int y)) -. (inv (from_int y)) <. from_int x
           so (from_int (x * (power 2 (2*n))) -. 1. ) *. (inv (from_int (power 4 n))) <. from_int x } ;
 

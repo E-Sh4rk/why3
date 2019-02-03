@@ -193,6 +193,7 @@ let compute_cst (n: int) (x : int) : int
   if n = 0 then
     x
   else if n < 0 then (
+  
     assert { (from_int (ED.div x (power 2 (2*(-n)))) -. 1. ) *. (_B (-n)) <. from_int x 
           by (ED.div x (power 4 (-n)) - 1) * (power 4 (-n)) < x
           so from_int ((ED.div x (power 4 (-n)) - 1) * (power 4 (-n))) <. from_int x
@@ -212,9 +213,8 @@ let compute_cst (n: int) (x : int) : int
           so from_int x <. (from_int (x * (power 2 (2*n))) +. 1. ) *. (inv (from_int (power 4 n))) } ;
   
     assert { (from_int (x * (power 2 (2*n))) -. 1. ) *. (_B (-n)) <. from_int x 
-          by let y = (power 4 n) in (from_int (x * y)) *. (inv (from_int y)) = from_int x
-          so let y = (power 4 n) in (from_int (x * y)) *. (inv (from_int y)) -. (inv (from_int y)) <. from_int x
-          so let y = (power 4 n) in (from_int (x * y)) *. (inv (from_int y)) -. (inv (from_int y)) <. from_int x
+          by (from_int (x * (power 4 n))) *. (inv (from_int (power 4 n))) = from_int x
+          so (from_int (x * (power 4 n))) *. (inv (from_int (power 4 n))) -. (inv (from_int (power 4 n))) <. from_int x
           so (from_int (x * (power 2 (2*n))) -. 1. ) *. (inv (from_int (power 4 n))) <. from_int x } ;
 
     shift_left x (2*n)
