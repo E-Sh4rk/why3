@@ -103,7 +103,7 @@
  <goal name="_B_8" proved="true">
  <proof prover="0"><result status="valid" time="0.02"/></proof>
  </goal>
- <goal name="_B_9_1" proved="true">
+ <goal name="_B_9_aux" proved="true">
  <proof prover="0"><result status="valid" time="0.00"/></proof>
  </goal>
  <goal name="_B_9" proved="true">
@@ -112,7 +112,7 @@
  <goal name="_B_10" proved="true">
  <proof prover="0"><result status="valid" time="0.02"/></proof>
  </goal>
- <goal name="_B_11_1" proved="true">
+ <goal name="_B_11_aux" proved="true">
  <proof prover="0"><result status="valid" time="0.02"/></proof>
  </goal>
  <goal name="_B_11" proved="true">
