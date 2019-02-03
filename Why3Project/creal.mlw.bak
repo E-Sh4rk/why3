@@ -89,7 +89,7 @@ let function isqrt (n:int) : int
       sum := !sum + 2 * !count + 1
     done ;
     assert { !count >= 0 /\ !count * !count <= n < (!count + 1)*(!count + 1) } ;
-    assert { sqrt (from_int (!count * !count)) <=. sqrt (from_int n) <. sqrt (from_int (!count + 1)*(!count + 1)) } ;
+    assert { sqrt (from_int (!count * !count)) <=. sqrt (from_int n) <. sqrt (from_int ((!count + 1)*(!count + 1))) } ;
     assert { from_int !count <=. sqrt (from_int n) <. from_int (!count + 1) } ;
     !count
     

@@ -12,11 +12,11 @@ axiom op_log : forall x:real,y:real. 0. <. x <. y -> log(x) <. log(y)
 
 use int.EuclideanDivision as ED
 
-let lemma euclid_uniq (x y q : int) : unit
+(*let lemma euclid_uniq (x y q : int) : unit
   requires { y > 0 }
   requires { q * y <= x < q * y + y }
   ensures { ED.div x y = q } =
-  ()
+  ()*)
 
 (*let power2 (l:int) : int
   requires { 0 <= l }
