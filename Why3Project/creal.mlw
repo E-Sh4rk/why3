@@ -408,7 +408,7 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
         so (_B k) <. from_int (p + 1)
         so power 4 k < p + 1 
         so power 4 k <= p } ;
-  assert { (_B n) *. (_B k) <=. (from_int p /. 4.) *. (from_int p)
+  assert { _B (n+k) <=. (from_int p /. 4.) *. (from_int p)
         by _B (n+k) = (_B n) *. (_B k) /\ _B n <=. (from_int p /. 4.) /\ _B k <=. (from_int p)
         so (_B (n+k)) = (_B n) *. (_B k) <=. (_B n) *. (from_int p) <=. (from_int p /. 4.) *. (from_int p)  } ;
   assert { from_int d <=. (from_int p -. 1.) /. 2.
@@ -494,7 +494,7 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
     assert { d = dp by 2*r >= p +1 > p-1 >= 2*d so r >= d /\ d <= p /\ 0 < p /\ 0 < pow4nk } ;
     assert { (from_int (d + 1) -. 1.) *. (_B (-n)) <. inv x by (from_int d) *. (_B (-n)) <. inv x } ;
           
-    assert { dm <= d+1 by ED.div pow4nk (p-1) <= (ED.div pow4nk p) + 1 } ;
+    assert { dm <= d+1 by 0 < pow4nk /\ 1 < p-1 /\ d < p - 1 so ED.div pow4nk (p-1) <= (ED.div pow4nk p) + 1 } ;
     assert { inv x <. (from_int (d+1) +. 1.) *. (_B (-n))
           by inv x *. (_B n) <. from_int dm +. 1. <=. (from_int d +. 1.) +. 1. <=. from_int d +. 2.
           so inv x *. (_B n) <. from_int d +. 2. /\ inv (_B n) >. 0.
