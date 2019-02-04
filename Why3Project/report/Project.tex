@@ -132,7 +132,11 @@ assert { (from_int res -. 1.) *. (_B (-n)) <=. lb } ;
 	$\sqrt{n+1}-\sqrt{n}\leq 1$. Il se prouve facilement en montrant que $(\sqrt{n+1}-\sqrt{n})^2\leq 1$.
 	A partir de ce lemme, la preuve de $\floor*{\sqrt{n}} \leq \floor*{\sqrt{n-1}}+1$ est immédiate.\\
 	En revanche, la preuve de $\ceil*{\sqrt{n+1}}-1 \leq \floor*{\sqrt{n}}$ est un peu plus astucieuse.
-	J'ai séparé la preuve en deux cas, selon que $n+1$ soit un carré parfait ou non.
+	J'ai séparé la preuve en deux cas, selon que $n+1$ soit un carré parfait ou non. Dans le premier cas,
+	on peut conclure directement grace au lemme et au fait que $\ceil*{\sqrt{n+1}}=\sqrt{n+1}$.
+	Dans le second cas, on peut montrer par l'absurde que $\floor*{\sqrt{n+1}}\leq \floor*{\sqrt{n}}$
+	($\floor*{\sqrt{n+1}} > \floor*{\sqrt{n}} \implies n < (\floor*{\sqrt{n+1}})^2 < n+1$),
+	puis conclure sans difficulté.
 
 	\section{Conclusion}
 		
