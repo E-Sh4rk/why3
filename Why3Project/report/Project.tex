@@ -27,6 +27,8 @@
 \date{\vspace{-5ex}}
 
 \pagenumbering{gobble}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 \begin{document}
 
@@ -126,7 +128,11 @@ assert { (from_int res -. 1.) *. (_B (-n)) <=. lb } ;
 	J'ai encore une fois prouvé chaque inégalité de l'encadrement séparemment. Il n'y a pas de difficulté mathématique
 	pour ces inégalités, chacune se simplifie immédiatement en une inégalité triviale.
 
-	\paragraph{17. boundaries for sqrt}
+	\paragraph{17. boundaries for sqrt} Pour prouver l'encadrement de l'énoncé, j'ai commencé par prouver un lemme plus simple:
+	$\sqrt{n+1}-\sqrt{n}\leq 1$. Il se prouve facilement en montrant que $(\sqrt{n+1}-\sqrt{n})^2\leq 1$.
+	A partir de ce lemme, la preuve de $\floor*{\sqrt{n}} \leq \floor*{\sqrt{n-1}}+1$ est immédiate.\\
+	En revanche, la preuve de $\ceil*{\sqrt{n+1}}-1 \leq \floor*{\sqrt{n}}$ est un peu plus astucieuse.
+	J'ai séparé la preuve en deux cas, selon que $n+1$ soit un carré parfait ou non.
 
 	\section{Conclusion}
 		
