@@ -138,6 +138,39 @@ assert { (from_int res -. 1.) *. (_B (-n)) <=. lb } ;
 	($\floor*{\sqrt{n+1}} > \floor*{\sqrt{n}} \implies n < (\floor*{\sqrt{n+1}})^2 < n+1$),
 	puis conclure sans difficulté.
 
+	\paragraph{18. compute\_sqrt} Bien qu'il m'ai fallu plusieurs étapes intermédiaires, cette preuve est relativement
+	facile. Pour le case du \mintinline{ocaml}{else}, on part de l'encadrement initial de x, on passe à la racine et on se sert du résultat
+	précédent pour obtenir l'encadrement voulu (on peut temporairement multiplier le tout par $B^n$ pour pouvoir appliquer plus
+	facilement le résultat précédent).
+
+	\paragraph{19. interp} Aucune difficulté pour cette fonction. Il faut simplement bien penser à la déclarer \mintinline{ocaml}{ghost},
+	car les opérations sur les réels ne sont pas calculables.
+
+	\paragraph{20. wf\_term} Le seul cas intéressant ici est le cas de la racine. Pour ce cas il faut vérifier que l'interpretation
+	de l'argument est positif ET qu'il est un terme valide (le fait que le terme en argument ait une intrepretation positive
+	n'implique pas qu'il soit valide).
+	\begin{minted}{ocaml}
+Sqrt t    -> (wf_term t) && (interp t >=. 0.)
+	\end{minted}
+
+	\paragraph{21. compute} L'implémentation de cette fonction est facile puisqu'il suffit d'appeler les fonctions
+	définies précedemment pour chaque cas. Il faut simplment faire attention à cacluler récursivement les sous-termes
+	à la bonne précision (selon l'opération à réaliser). La preuve se fait automatiquement, il faut juste préciser le variant.
+	\begin{minted}{ocaml}
+let rec compute (t:term) (n:int) : int
+	requires { wf_term t }
+	ensures { framing (interp t) result n }
+	variant { t }
+	=
+	match t with
+	| Cst c     -> compute_cst n c
+	| Add t1 t2 -> compute_add n (interp t1) (compute t1 (n+1)) (interp t2) (compute t2 (n+1))
+	| Neg t     -> compute_neg n (interp t)  (compute t n)
+	| Sub t1 t2 -> compute_sub n (interp t1) (compute t1 (n+1)) (interp t2) (compute t2 (n+1))
+	| Sqrt t    -> compute_sqrt n (interp t) (compute t (2*n))
+	end
+	\end{minted}
+
 	\section{Conclusion}
 		
 	\begin{enumerate}
