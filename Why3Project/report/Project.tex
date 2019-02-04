@@ -122,11 +122,9 @@ assert { (from_int res -. 1.) *. (_B (-n)) <=. lb } ;
 	étant équivalente à l'addition de $x$ et de l'opposé de $y$. Il faut simplement faire attention à
 	demander un encadrement de $x$ et $y$ de précision $n+1$, car l'addition fait perdre un niveau de précision.
 
-	\paragraph{16,5. compute\_cst} Il n'y a pas vraiment de question pour cette fonction dans l'énoncé,
-	mais la preuve de la fonction fournie n'est pas immédiate pour autant.
-	Le cas $n=0$ ne pose aucune difficulté, mais les cas $n<0$ et $n>0$ nécessitent quelques étapes intermédiaires.
-	J'ai encore une fois prouvé chaque inégalité de l'encadrement séparemment. Il n'y a pas de difficulté mathématique
-	pour ces inégalités, chacune se simplifie immédiatement en une inégalité triviale.
+	\paragraph{16,5. compute\_cst} La preuve de cette fonction n'est pas immédiate, bien que ne posant aucune difficulté mathématique.
+	En particulier, les cas $n<0$ et $n>0$ nécessitent quelques étapes intermédiaires.
+	J'ai encore une fois prouvé chaque inégalité de l'encadrement séparemment, chacune se simplifiant facilement en une inégalité triviale.
 
 	\paragraph{17. boundaries for sqrt} Pour prouver l'encadrement de l'énoncé, j'ai commencé par prouver un lemme plus simple:
 	$\sqrt{n+1}-\sqrt{n}\leq 1$. Il se prouve facilement en montrant que $(\sqrt{n+1}-\sqrt{n})^2\leq 1$.
@@ -170,6 +168,13 @@ let rec compute (t:term) (n:int) : int
 	| Sqrt t    -> compute_sqrt n (interp t) (compute t (2*n))
 	end
 	\end{minted}
+
+	\paragraph{22. two properties about euclidian division } J'ai hésité quant à la manière d'écrire ces propriétés.
+	En effet, chacune se décompose en réalité en deux parties. Malgré celà, j'ai finalement décidé de ne faire que deux lemmes,
+	chacun traitant des deux possibilités. Je les ai écrit comme des \mintinline{ocaml}{function lemma}, mais je n'ai finalement
+	pas eu besoin de détailler la preuve: Z3 a su prouver ces deux lemmes sans indication.
+
+	\paragraph{23. inv\_simpl\_simpl}
 
 	\section{Conclusion}
 		

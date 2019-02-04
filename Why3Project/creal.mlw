@@ -486,23 +486,21 @@ let inv_simple_simple (ghost x:real) (p:int) (n:int)
           by inv x *. (_B n) <. from_int dm +. 1. <=. (from_int d) +. 1.
           so inv x *. (_B n) <. from_int d +. 1. /\ inv (_B n) >. 0.
           so (inv x *. (_B n)) *. inv (_B n) <=. (from_int d +. 1.) *. inv (_B n) /\ (inv x *. (_B n)) *. inv (_B n) <> (from_int d +. 1.) *. inv (_B n)
-          so (_B n) *. inv (_B n) = 1. so inv x *. ((_B n) *. inv (_B n)) = inv x *. 1. = inv x
-              } ;
+          so (_B n) *. inv (_B n) = 1. so inv x *. ((_B n) *. inv (_B n)) = inv x *. 1. = inv x } ;
     d
   )
   else
   (
     assert { d = dp by 2*r >= p +1 > p-1 >= 2*d so r >= d /\ d <= p /\ 0 < p /\ 0 < pow4nk } ;
-    assert { (from_int d) *. (_B (-n)) <. inv x } ;
+    assert { (from_int (d + 1) -. 1.) *. (_B (-n)) <. inv x by (from_int d) *. (_B (-n)) <. inv x } ;
           
     assert { dm <= d+1 by ED.div pow4nk (p-1) <= (ED.div pow4nk p) + 1 } ;
-    assert { inv x <. (from_int d +. 2.) *. (_B (-n))
+    assert { inv x <. (from_int (d+1) +. 1.) *. (_B (-n))
           by inv x *. (_B n) <. from_int dm +. 1. <=. (from_int d +. 1.) +. 1. <=. from_int d +. 2.
           so inv x *. (_B n) <. from_int d +. 2. /\ inv (_B n) >. 0.
           so (inv x *. (_B n)) *. inv (_B n) <=. (from_int d +. 2.) *. inv (_B n) /\ (inv x *. (_B n)) *. inv (_B n) <> (from_int d +. 2.) *. inv (_B n)
           so (_B n) *. inv (_B n) = 1. so inv x *. ((_B n) *. inv (_B n)) = inv x *. 1. = inv x
-              } ;
-    assert { (from_int (d + 1) -. 1.) *. (_B (-n)) <. inv x <. (from_int (d+1) +. 1.) *. (_B (-n)) } ;
+          so inv x <. (from_int d +. 2.) *. (_B (-n)) } ;
     d+1
   )
   

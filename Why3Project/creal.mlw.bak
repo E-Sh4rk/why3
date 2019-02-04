@@ -224,7 +224,7 @@ let compute_cst (n: int) (x : int) : int
 
 function isqrt_2 (n:int) : int = ceil (sqrt (from_int n))
 
-let lemma sqrt_boundaries (n:int) : unit
+let lemma sqrt_lemma (n:int) : unit
   requires { n >= 1 }
   ensures { sqrt (from_int (n+1)) -. sqrt (from_int n) <=. 1. } =
   assert { sqrt (from_int (n+1)) -. sqrt (from_int n) <=. 1.
