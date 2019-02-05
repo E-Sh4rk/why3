@@ -38,7 +38,7 @@
 
 	\paragraph{0. axioms}
 	Je n'ai eu besoin que de l'axiome supplémentaire proposé dans le sujet:
-	\[\forall xy, 0 < x < y \implies log(x) < log(y)\]
+	\[\forall xy, 0 < x < y \implies \log(x) < \log(y)\]
 
 	\paragraph{1. power2}
 	J'avais initialement implémenté cette fonction de manière itérative (code toujours présent mais commenté),
@@ -208,7 +208,25 @@ Inv' t     -> (wf_term' t) && (interp' t <>. 0.)
 	Seules quelques étapes intermédiaires triviales sont requises pour le cas du \mintinline{ocaml}{else} de \mintinline{ocaml}{Inv'}
 	et celui de \mintinline{ocaml}{msd}.
 
-	\paragraph{27. termination}
+	\paragraph{27. termination} Pour prouver la terminaison de ces deux fonctions, j'ai commencé par créer une fonction qui calcule
+	le variant de \mintinline{ocaml}{msd} suggéré par l'énoncé:
+	\begin{minted}{ocaml}
+let ghost function msd_variant (t:term') (n:int) : int =
+	let a = - (floor (log2 (abs (interp' t)))) + 1 in
+	if a < n then 0 else a - n
+	\end{minted}
+	Pour prouver la terminaison des deux fonctions (qui sont mutuellement recursives),
+	j'ai donc combiné ce variant avec celui de la première version de \mintinline{ocaml}{compute}:
+	\mintinline{ocaml}{variant { t, msd_variant t n }}.
+	Why3 interprète cela avec un ordre lexicographique, et c'est bien ce que nous voulons ici.\\
+
+	Pour prouver la stricte décroissance de ce variant, le seul cas qui pose problème est le cas du \mintinline{ocaml}{if}
+	de \mintinline{ocaml}{msd}. Il faut prouver que, si cette branche est atteinte, alors \mintinline{ocaml}{msd_variant t n}
+	est strictement positif. La première chose à faire est de majorer \mintinline{ocaml}{abs (interp' t)} par $2B^{-n}$,
+	ce qui se fait assez facilement en utilisant l'encadrement de l'interpretation de $t$ et le fait que $c=0 \vee c=1 \vee c=2$
+	(il y a plusieurs cas à traiter, mais Why3 s'en sort très bien). Il ne reste alors plus qu'à passer cette inégalité au log
+	pour faire apparaitre la valeur du $a$ de \mintinline{ocaml}{msd_variant t n} et obtenir le résultat souhaité.
+	L'axiome ajouté au tout début sert pour le passage au log de cette question.
 
 	\section{Conclusion}
 		
