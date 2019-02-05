@@ -176,18 +176,30 @@ let rec compute (t:term) (n:int) : int
 
 	\paragraph{23. inv\_simple\_simple} C'est la fonction que j'ai eu le plus de mal à prouver. En plus des deux propriétés précédentes,
 	j'ai ajouté quelques lemmes triviaux pour aider les solveurs pour la suite.
+	Posons $d = 2^{2(n+k)} // p$ (avec $//$ la division euclidienne) et $r = 2^{2(n+k)} \% p$ (avec $\%$ le reste euclidien).
 	La première étape, commune aux deux branches \mintinline{ocaml}{if} et \mintinline{ocaml}{else},
 	consiste à montrer que $2^{2(n+k)} // (p+1) < \frac{1}{x} \times B^n < (2^{2(n+k)} // (p-1)) + 1$.
 	Pour cela, j'utilise l'encadrement initial de $x$ et je passe à l'inverse (le reste suit assez facilement).
 	Je montre également les deux propriétés suivantes qui seront utiles par la suite: $B^{n+k} \leq \frac{p^2}{4}$
 	et $d \leq \frac{p-1}{2}$. La première se montre facilement en remarquant que $B^k \leq p$, et la seconde découle
-	de la première (on minore $d*p$ puis on divise par $p$).
+	de la première (on majore $dp$ puis on divise par $p$).\\
+
+	Le cas du \mintinline{ocaml}{if} est le plus compliqué. Il faut montrer que $2^{2(n+k)} // (p-1) = d$,
+	puis conclure en combinant cela avec l'inégalité prouvée précedemment: $2^{2(n+k)} // (p+1) < \frac{1}{x} \times B^n < (2^{2(n+k)} // (p-1)) + 1$.
+	Pour prouver $2^{2(n+k)} // (p-1) = d$, on peut montrer que $dp + rp + p \leq p^2$ en se servant de l'hypothèse du if
+	($ 2r \leq p $) et de $B^{n+k} \leq \frac{p^2}{4}$, puis on divise le tout par $p$ (ce qui donne $d + r < p$). On peut alors
+	utiliser l'une des deux propriétés montrées à la question 22 pour obtenir le résultat souhaité.\\
+
+	Pour le \mintinline{ocaml}{else}, on peut facilement montrer que $2^{2(n+k)} // (p+1) = d$ en utilisant le fait que $d \leq \frac{p-1}{2}$
+	pour montrer que $r >= d$, puis en utilisant l'autre propriété montrée à la question 22.
+	On conclut encore une fois en combinant ce résultat avec $2^{2(n+k)} // (p+1) < \frac{1}{x} \times B^n < (2^{2(n+k)} // (p-1)) + 1$.
 
 
 	\section{Conclusion}
 		
 	\begin{enumerate}
 		\item Lemmes en dehors des fonctions: plus efficace pour prouver des résultats mathématiques indépendants.
+		\item from\_int implicites?
 	\end{enumerate}
 
 \end{document}
