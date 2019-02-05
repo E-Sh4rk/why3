@@ -131,9 +131,9 @@ assert { (from_int res -. 1.) *. (_B (-n)) <=. lb } ;
 	A partir de ce lemme, la preuve de $\floor*{\sqrt{n}} \leq \floor*{\sqrt{n-1}}+1$ est immédiate.\\
 	En revanche, la preuve de $\ceil*{\sqrt{n+1}}-1 \leq \floor*{\sqrt{n}}$ est un peu plus astucieuse.
 	J'ai séparé la preuve en deux cas, selon que $n+1$ soit un carré parfait ou non. Dans le premier cas,
-	on peut conclure directement grace au lemme et au fait que $\ceil*{\sqrt{n+1}}=\sqrt{n+1}$.
+	on peut conclure directement grâce au lemme et au fait que $\ceil*{\sqrt{n+1}}=\sqrt{n+1}$.
 	Dans le second cas, on peut montrer par l'absurde que $\floor*{\sqrt{n+1}}\leq \floor*{\sqrt{n}}$
-	($\floor*{\sqrt{n+1}} > \floor*{\sqrt{n}} \implies n < (\floor*{\sqrt{n+1}})^2 < n+1$),
+	(en effet, $\floor*{\sqrt{n+1}} > \floor*{\sqrt{n}} \implies n < (\floor*{\sqrt{n+1}})^2 < n+1$),
 	puis conclure sans difficulté.
 
 	\paragraph{18. compute\_sqrt} Bien qu'il m'ai fallu plusieurs étapes intermédiaires, cette preuve est relativement
@@ -176,24 +176,39 @@ let rec compute (t:term) (n:int) : int
 
 	\paragraph{23. inv\_simple\_simple} C'est la fonction que j'ai eu le plus de mal à prouver. En plus des deux propriétés précédentes,
 	j'ai ajouté quelques lemmes triviaux pour aider les solveurs pour la suite.
-	Posons $d = 2^{2(n+k)} // p$ (avec $//$ la division euclidienne) et $r = 2^{2(n+k)} \% p$ (avec $\%$ le reste euclidien).
+	Posons $d = B^{n+k} // p$ (avec $//$ la division euclidienne) et $r = B^{n+k} \% p$ (avec $\%$ le reste euclidien).
 	La première étape, commune aux deux branches \mintinline{ocaml}{if} et \mintinline{ocaml}{else},
-	consiste à montrer que $2^{2(n+k)} // (p+1) < \frac{1}{x} \times B^n < (2^{2(n+k)} // (p-1)) + 1$.
+	consiste à montrer que $B^{n+k} // (p+1) < \frac{1}{x} \times B^n < (B^{n+k} // (p-1)) + 1$.
 	Pour cela, j'utilise l'encadrement initial de $x$ et je passe à l'inverse (le reste suit assez facilement).
 	Je montre également les deux propriétés suivantes qui seront utiles par la suite: $B^{n+k} \leq \frac{p^2}{4}$
 	et $d \leq \frac{p-1}{2}$. La première se montre facilement en remarquant que $B^k \leq p$, et la seconde découle
 	de la première (on majore $dp$ puis on divise par $p$).\\
 
-	Le cas du \mintinline{ocaml}{if} est le plus compliqué. Il faut montrer que $2^{2(n+k)} // (p-1) = d$,
-	puis conclure en combinant cela avec l'inégalité prouvée précedemment: $2^{2(n+k)} // (p+1) < \frac{1}{x} \times B^n < (2^{2(n+k)} // (p-1)) + 1$.
-	Pour prouver $2^{2(n+k)} // (p-1) = d$, on peut montrer que $dp + rp + p \leq p^2$ en se servant de l'hypothèse du if
+	Le cas du \mintinline{ocaml}{if} est le plus compliqué. Il faut montrer que $B^{n+k} // (p-1) = d$,
+	puis conclure en combinant cela avec l'inégalité prouvée précedemment: $B^{n+k} // (p+1) < \frac{1}{x} \times B^n < (B^{n+k} // (p-1)) + 1$.
+	Pour prouver $B^{n+k} // (p-1) = d$, on peut montrer que $dp + rp + p \leq p^2$ en se servant de l'hypothèse du if
 	($ 2r \leq p $) et de $B^{n+k} \leq \frac{p^2}{4}$, puis on divise le tout par $p$ (ce qui donne $d + r < p$). On peut alors
 	utiliser l'une des deux propriétés montrées à la question 22 pour obtenir le résultat souhaité.\\
 
-	Pour le \mintinline{ocaml}{else}, on peut facilement montrer que $2^{2(n+k)} // (p+1) = d$ en utilisant le fait que $d \leq \frac{p-1}{2}$
+	Pour le \mintinline{ocaml}{else}, on peut facilement montrer que $B^{n+k} // (p+1) = d$ en utilisant le fait que $d \leq \frac{p-1}{2}$
 	pour montrer que $r >= d$, puis en utilisant l'autre propriété montrée à la question 22.
-	On conclut encore une fois en combinant ce résultat avec $2^{2(n+k)} // (p+1) < \frac{1}{x} \times B^n < (2^{2(n+k)} // (p-1)) + 1$.
+	On conclut encore une fois en combinant ce résultat avec $B^{n+k} // (p+1) < \frac{1}{x} \times B^n < (B^{n+k} // (p-1)) + 1$.
 
+	\paragraph{24. inv\_simple} La preuve de cette fonction repose sur les garanties de \mintinline{ocaml}{inv_simple_simple}.
+	La seule chose à faire est de prouver la précondition de cette denière (il suffit pour cela de multiplier l'encadrement
+	initial de $x$ par $B^m$ et de simplifier), puis de déduire de ses garanties l'encadrement voulu (il faut encore une fois
+	multiplier l'encadrement par $B^m$ pour cela).
+
+	\paragraph{25. term', interp', wf\_term'} Aucune difficulté pour cette question, \mintinline{ocaml}{wf_term} se complète ainsi:
+	\begin{minted}{ocaml}
+Inv' t     -> (wf_term' t) && (interp' t <>. 0.)
+	\end{minted}
+
+	\paragraph{26. correction} La correction de \mintinline{ocaml}{compute'} et \mintinline{ocaml}{msd} est presque automatique.
+	Seules quelques étapes intermédiaires triviales sont requises pour le cas du \mintinline{ocaml}{else} de \mintinline{ocaml}{Inv'}
+	et celui de \mintinline{ocaml}{msd}.
+
+	\paragraph{27. termination}
 
 	\section{Conclusion}
 		
