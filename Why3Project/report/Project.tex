@@ -229,9 +229,30 @@ let ghost function msd_variant (t:term') (n:int) : int =
 	L'axiome ajouté au tout début sert pour le passage au log de cette question.
 
 	\section{Conclusion}
-		
+
+	J'ai trouvé le sujet un peu long et redondant. Notamment, beaucoup de preuves se ressemblaient et consistaient principalement
+	à faire des simplifications élémentaires sur des inégalités (qui souvent ne posent aucun problème sur le papier,
+	mais peuvent se révéler assez longues pour les faire accepter par Why3, ce qui n'est pas toujours très intéressant/motivant).
+	Le fait de devoir recopier les preuves une seconde fois dans le rapport accentue ce coté redondant (bien que pour ma part
+	j'ai préféré donner les idées plutot que de réelles preuves, afin de respecter le nombre de pages indiqué).
+	Malgré ce coté "paperasse administrative", j'ai trouvé que d'autres preuves étaient assez intéressantes
+	(notamment, la preuve de terminaison de la version finale de \mintinline{ocaml}{compute}).
+	Finalement, je trouve que ce sujet permet tout de même de prouver un résultat intéressant,
+	et m'a permis de bien progresser avec Why3.\\
+	
+	Concernant Why3, j'ai eu beaucoup de mal au début à me familiariser avec le système de preuve.
+	Je n'arrivais pas vraiment à prévoir ce que les solveurs allaient pouvoir prouver ou non,
+	et j'avais du mal à trouver quoi faire pour les aider. Avec le temps j'ai mieux compris comment faire des preuves plus "compréhensibles"
+	par les solveurs, et j'arrivais donc plus rapidement à passer de la preuve papier à une preuve Why3 fonctionnelle.
+	Cependant, j'ai trouvé les capacités des solveurs très inégales, certains résultats non triviaux
+	se prouvant parfois automatiquement (la question 22 avec Z3 par exemple) alors que des opérations élémentaires
+	sur les inégalités pouvant mettre à mal tous les solveurs (surtout lorsqu'il s'agit d'inégalités strictes).\\
+
+	Voici quelques observations que j'ai faites, et également quelques remarques/suggestions:
 	\begin{enumerate}
 		\item Lemmes en dehors des fonctions: plus efficace pour prouver des résultats mathématiques indépendants.
+		\item Bon pour les disjonctions de cas (cf preuve de compute)
+		\item Eviter de faire trop de résultats intermediaires!
 		\item from\_int implicites?
 	\end{enumerate}
 
