@@ -224,7 +224,7 @@ let compute_cst (n: int) (x : int) : int
 
 function isqrt_2 (n:int) : int = ceil (sqrt (from_int n))
 
-let lemma sqrt_lemma (n:int) : unit
+let ghost lemma sqrt_lemma (n:int) : unit
   requires { n >= 1 }
   ensures { sqrt (from_int (n+1)) -. sqrt (from_int n) <=. 1. } =
   assert { sqrt (from_int (n+1)) -. sqrt (from_int n) <=. 1.
@@ -235,12 +235,12 @@ let lemma sqrt_lemma (n:int) : unit
         <=. (from_int (n+1)) -. 2. *. (from_int n) +. (from_int n)
         <=. 1. }
 
-let lemma sqrt_boundary1 (n: int) : unit
+let ghost lemma sqrt_boundary1 (n: int) : unit
   requires { n >= 1 }
   ensures { isqrt_2 (n+1) - 1 <= isqrt n } =
-  let k = isqrt n in
-  let k' = isqrt (n+1) in
-  if k' * k' = n + 1 then
+  let ghost k = isqrt n in
+  let ghost k' = isqrt (n+1) in
+  ghost if k' * k' = n + 1 then
   (
     assert { isqrt_2 (n+1) - 1 <= isqrt n
           by sqrt (from_int (n + 1)) -. 1. <=. sqrt (from_int n) <=. from_int (isqrt n)
@@ -248,7 +248,7 @@ let lemma sqrt_boundary1 (n: int) : unit
   )
   else
   (
-    if k' > k then
+    ghost if k' > k then
       assert { false
             by k' <= isqrt (n+1)
             so sqr (from_int k') <=. sqr (from_int (isqrt (n+1))) <=. sqr (sqrt (from_int (n+1)))
@@ -265,7 +265,7 @@ let lemma sqrt_boundary1 (n: int) : unit
             so isqrt_2 (n+1) <= k + 1 }
   )
   
-let lemma sqrt_boundary2 (n: int) : unit
+let ghost lemma sqrt_boundary2 (n: int) : unit
   requires { n >= 1 }
   ensures { isqrt n <= isqrt (n-1) + 1 } = ()
   
@@ -350,39 +350,39 @@ let rec compute (t:term) (n:int) : int
 
 (* Some lemmas *)
 
-let lemma eucl_div_1 (a: int) (b: int) : unit
+let ghost lemma eucl_div_1 (a: int) (b: int) : unit
   requires { 0 < a /\ 0 < b /\ ED.div a b < b }
   ensures { (ED.mod a b < ED.div a b  -> ED.div a (b+1) = (ED.div a b) - 1)
          /\ (ED.mod a b >= ED.div a b -> ED.div a (b+1) = (ED.div a b)) } = ()
   
-let lemma eucl_div_2 (a: int) (b: int) : unit
+let ghost lemma eucl_div_2 (a: int) (b: int) : unit
   requires { 0 < a /\ 1 < b /\ ED.div a b < b - 1 }
   ensures { ( b - 1 - ED.div a b <= ED.mod a b -> ED.div a (b-1) = (ED.div a b) + 1)
          /\ ( b - 1 - ED.div a b > ED.mod a b  -> ED.div a (b-1) = (ED.div a b)) } = ()
         
-let lemma eucl_div_cor_1 (a: int) (b: int) : unit
+let ghost lemma eucl_div_cor_1 (a: int) (b: int) : unit
   requires { 0 < a /\ 1 < b /\ ED.div a b < b }
   ensures { ED.div a (b+1) >= (ED.div a b) - 1 } =
   assert { ED.div a (b+1) = (ED.div a b) - 1 \/ ED.div a (b+1) = (ED.div a b) }
          
-let lemma eucl_div_cor_2 (a: int) (b: int) : unit
+let ghost lemma eucl_div_cor_2 (a: int) (b: int) : unit
   requires { 0 < a /\ 1 < b /\ ED.div a b < b - 1 }
   ensures { ED.div a (b-1) <= (ED.div a b) + 1 } =
   assert { ED.div a (b-1) = (ED.div a b) + 1 \/ ED.div a (b-1) = (ED.div a b) }
 
-let lemma strict_ineq (x:real) (y:real) (z:real) : unit
+let ghost lemma strict_ineq (x:real) (y:real) (z:real) : unit
   requires { x <. y /\ z >. 0. }
   ensures { x *. z <. y *. z } = ()
 
-let lemma strict_ineq_int (x:int) (y:int) (z:int) : unit
+let ghost lemma strict_ineq_int (x:int) (y:int) (z:int) : unit
   requires { x < y /\ z > 0 }
   ensures { x * z < y * z } = ()
 
-let lemma inv_ineq (x:real) (y:real) : unit
+let ghost lemma inv_ineq (x:real) (y:real) : unit
   requires { 0. <. x <. y }
   ensures { inv y <. inv x } = ()
 
-let lemma div_ineq (x:int) (y:int) : unit
+let ghost lemma div_ineq (x:int) (y:int) : unit
   requires { 0 < y }
   ensures { from_int (ED.div x y) <=. from_int x /. from_int y } =
   let ghost d = ED.div x y in
