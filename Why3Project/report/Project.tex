@@ -228,6 +228,32 @@ let ghost function msd_variant (t:term') (n:int) : int =
 	pour faire apparaitre la valeur du $a$ de \mintinline{ocaml}{msd_variant t n} et obtenir le résultat souhaité.
 	L'axiome ajouté au tout début sert pour le passage au log de cette question.
 
+	\paragraph{BONUS} Pour aborder cette question, j'ai commencé par implémenter l'algorithme d'inverse de la thèse en Python 3,
+	afin de pouvoir le tester et eventuellement trouver des contre-exemples.
+	J'ai utilisé des flottants à précision arbitraire lorsque nécessaire (notamment pour pouvoir avoir la "vraie" valeur de l'inverse
+	et vérifier que le résultat de l'algorithme respecte le framing). L'algorithme est très court (j'ai codé uniquement le strict nécessaire),
+	et comme test témoin j'ai également implémenté la variante utilisée dans le projet afin de s'assurer qu'il renvoie toujours
+	un bon résultat (sinon cela voudrait dire que mon script Python est éronné). Grace à ce script, j'ai trouvé un contre-exemple.\\
+
+	Vous pouvez tester ce script en exécutant \textit{counterexample.py} avec Python 3. Il ne trouve pas systématiquement de contre-exemple
+	car il utilise de l'aléatoire, mais il devrait en trouver un au bout de quelques essais. Dans le cas contraire, vous pouvez modifier
+	les valeurs \mintinline{python}{max_n} et \mintinline{python}{max_m} en haut du fichier, mais il faut faire attention de bien
+	augmenter la précision des flottants en conséquent.\\
+
+	Voici le détail d'un contre-exemple:
+	\begin{proof}
+	Prenons $x=1.335$ et essayons de calculer son inverse à précision $n=1$ en utilisant l'algorithme de la thèse.\\
+
+	On note $x_k$ l'entier de obtenu après calcul de $x$ à précision $k$ ($x_k$ doit vérifier \mintinline{ocaml}{framing x x_k k}).
+	Supposons que l'on ai $x_0=1$, $x_1=5$, $x_2=21$, $x_3=85$ et $x_4=341$ (tous ces entiers respectent le framing). On a alors $m=msd(x)=1$.\\
+
+	Après avoir suivi l'algorithme d'inverse de la thèse (pour $n=1$), on obtient $(1/x)_1=4$ (contre $3$ avec l'algorithme du projet).
+	En effet, en reprenant les notations de la thèse, on a $k=4$ et donc $x_k = 341 > 1$. On prend alors le \textit{ceil} de $4^5/341 \approx 3.0029$
+	(alors qu'on aurait arrondit à $3$ avec l'algorithme du projet).\\
+
+	On peut alors vérifier que 4 ne respecte pas la propriété de framing: $(4-1)/4 = 3/4 > 1/x \approx 0.749$.
+	\end{proof}
+
 	\section{Conclusion}
 
 	J'ai trouvé le sujet un peu long et redondant. Notamment, beaucoup de preuves se ressemblaient et consistaient principalement
@@ -250,7 +276,7 @@ let ghost function msd_variant (t:term') (n:int) : int =
 	se prouvant parfois automatiquement (la question 22 avec Z3 par exemple) alors que des opérations élémentaires
 	sur les inégalités pouvant mettre à mal tous les solveurs (surtout lorsqu'il s'agit d'inégalités strictes).\\
 
-	Voici quelques suggestions:
+	Voici quelques suggestions:\\
 	\begin{enumerate}
 		\item Certains solveurs tels que Why3 se "noient" très vite dans les hypothèses et résultats intermédiaires:
 		ils peuvent se réveler très efficaces pour prouver un résultat toplevel tel qu'un lemme,
@@ -258,10 +284,10 @@ let ghost function msd_variant (t:term') (n:int) : int =
 		Cela est compréhensible, néanmoins j'aurais parfois aimé avoir plus de controle là-dessus.
 		Il y a bien la commande \mintinline{ocaml}{clear_but} qui donne du controle, mais je ne la trouve pas très pratique à utiliser
 		(d'ailleurs je ne l'ai pas utilisé) et j'aurais préféré qu'il y ai dans le langage un mot clé tel que \mintinline{ocaml}{using}
-		qui permette de spécifier des lemmes/axiomes à utiliser en priorité, sans pour autant vider intégralement le reste de l'environnement.
+		qui permette de spécifier des lemmes/axiomes à utiliser en priorité, sans pour autant vider intégralement le reste de l'environnement.\\
 		\item L'utilisation explicite de la fonction \mintinline{ocaml}{from_int} rend les preuves assez lourdes et elles perdent beaucoup en lisibilité.
 		Pour un projet tel que celui-là, il aurait été agréable qu'il y ai une option pour inférer automatiquement les endroits où une conversion
-		entier vers réel est nécessaire.
+		entier vers réel est nécessaire.\\
 		\item L'éditeur a parfois quelques lacunes, notamment l'absence de CTRL+F et le fait que recharger l'environnement efface l'historique
 		de CTRL+Z. D'ailleurs, il serait très agréable de pouvoir utiliser le moteur de Why3 dans un éditeur de texte plus conventionnel, tel
 		que Visual Studio Code (comme il existe deja une version web de Why3, faire une extension pour Visual Studio Code ou même Atom 

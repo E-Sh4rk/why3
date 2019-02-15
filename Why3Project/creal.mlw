@@ -642,4 +642,9 @@ with msd (t:term') (n:int) (c:int) : (int, bool)
     )
   end
   
+(* ---------- BONUS ---------- *)
+ 
+(* See report *)
+ 
   
+ 
